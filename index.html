@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Révisions Rattrapages — L2 LEA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f13;
+    --surface: #16181f;
+    --surface2: #1e2029;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e9ef;
+    --muted: #8a8fa8;
+    --accent-ang: #ff6b35;
+    --accent-mana: #3b9eff;
+    --accent-droit: #a855f7;
+    --accent-ok: #22c55e;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,15,19,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 0;
+    overflow-x: auto;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--text);
+    white-space: nowrap;
+    padding: 16px 20px 16px 0;
+    border-right: 1px solid var(--border);
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .nav-tab {
+    padding: 16px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color .2s;
+    border-bottom: 2px solid transparent;
+    flex-shrink: 0;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active-ang { color: var(--accent-ang); border-bottom-color: var(--accent-ang); }
+  .nav-tab.active-mana { color: var(--accent-mana); border-bottom-color: var(--accent-mana); }
+
+  /* HERO */
+  .hero {
+    padding: 60px 24px 40px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800; line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero h1 span.ang { color: var(--accent-ang); }
+  .hero h1 span.mana { color: var(--accent-mana); }
+  .hero p {
+    color: var(--muted); font-size: 15px; line-height: 1.7;
+    max-width: 560px; margin-bottom: 28px;
+  }
+  .countdown {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,53,0.12);
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px; font-weight: 500;
+    color: var(--accent-ang);
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-ang); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* SECTIONS */
+  .section-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin: 48px 0 24px;
+  }
+  .section-pill {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .pill-ang { background: rgba(255,107,53,0.15); color: var(--accent-ang); }
+  .pill-mana { background: rgba(59,158,255,0.15); color: var(--accent-mana); }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+  }
+
+  /* CARDS */
+  .cards { display: grid; gap: 12px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color .2s, transform .15s;
+    cursor: pointer;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-1px); }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 20px; gap: 12px;
+  }
+  .card-left { display: flex; align-items: center; gap: 14px; }
+  .card-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--muted); min-width: 28px;
+  }
+  .card-title-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 600;
+  }
+  .card-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .chevron {
+    color: var(--muted); font-size: 14px;
+    transition: transform .25s;
+    flex-shrink: 0;
+  }
+  .card.open .chevron { transform: rotate(180deg); }
+  .card-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+    animation: fadeIn .2s ease;
+  }
+  .card.open .card-body { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:none} }
+
+  /* CONTENT STYLES */
+  .def-box {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 14px 0 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .def-box strong { color: var(--text); }
+  .def-box .label {
+    font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--accent-ang);
+    margin-bottom: 6px; display: block;
+  }
+  .def-box .label.blue { color: var(--accent-mana); }
+  .def-box .label.purple { color: var(--accent-droit); }
+
+  .timeline { margin: 14px 0; display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: flex; gap: 14px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-date { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--accent-ang); min-width: 52px; flex-shrink: 0; }
+  .tl-date.blue { color: var(--accent-mana); }
+  .tl-text { color: var(--muted); line-height: 1.6; }
+  .tl-text strong { color: var(--text); }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .tag {
+    font-size: 11.5px; font-weight: 500; padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .tag.orange { background: rgba(255,107,53,0.1); color: var(--accent-ang); border-color: rgba(255,107,53,0.2); }
+  .tag.blue { background: rgba(59,158,255,0.1); color: var(--accent-mana); border-color: rgba(59,158,255,0.2); }
+  .tag.purple { background: rgba(168,85,247,0.1); color: var(--accent-droit); border-color: rgba(168,85,247,0.2); }
+
+  h3 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin: 16px 0 8px; letter-spacing: .04em; text-transform: uppercase; }
+  .list-item { font-size: 13.5px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.6; }
+  .list-item:last-child { border-bottom: none; }
+  .list-item strong { color: var(--text); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
+  .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 12px 0; }
+  @media(max-width:600px){ .three-col { grid-template-columns: 1fr; } }
+
+  .mini-card {
+    background: var(--surface2); border-radius: 8px;
+    padding: 12px 14px; font-size: 12.5px;
+  }
+  .mini-card .mc-title { font-weight: 600; color: var(--text); margin-bottom: 4px; font-size: 13px; }
+  .mini-card p { color: var(--muted); line-height: 1.5; }
+
+  .alert {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 8px; padding: 12px 14px;
+    font-size: 13px; color: #ffb38a; line-height: 1.6;
+    margin: 12px 0;
+  }
+  .alert.blue {
+    background: rgba(59,158,255,0.08);
+    border-color: rgba(59,158,255,0.2);
+    color: #93c5fd;
+  }
+
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { background: var(--surface2); color: var(--muted); font-weight: 600; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+  td { padding: 8px 10px; color: var(--muted); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  td strong { color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 40px 24px;
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  footer span { color: var(--accent-ok); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">📚 L2 LEA</div>
+  <div class="nav-tab" onclick="scrollTo('anglais')" id="tab-ang">Anglais</div>
+  <div class="nav-tab" onclick="scrollTo('management')" id="tab-mana">Management</div>
+  <div class="nav-tab" onclick="scrollTo('droit')" id="tab-droit">Droit</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Rattrapages Juin 2025 · L2 LEA Lille</div>
+  <h1>Toutes tes<br><span class="ang">fiches de révision</span><br>au même endroit</h1>
+  <p>Anglais Culture & Société · Management des organisations · Droit de l'entreprise. Clique sur chaque thème pour déplier la fiche.</p>
+  <div class="countdown">
+    <span class="dot"></span>
+    Rattrapages le 2 juin — reste peu de temps, go !
+  </div>
+</div>
+
+<div class="section-wrap">
+
+  <!-- ===== ANGLAIS ===== -->
+  <div id="anglais" class="section-header">
+    <span class="section-pill pill-ang">Anglais</span>
+    <span class="section-title">Culture & Société</span>
+  </div>
+  <div class="cards">
+
+    <!-- ANG CM1 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">01</span>
+          <div>
+            <div class="card-title-text">The Mouse that gave birth to an Elephant</div>
+            <div class="card-subtitle">L'Empire britannique — causes, territoires, chronologie</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box">
+          <span class="label">Idée centrale</span>
+          La Grande-Bretagne, petit pays, a construit le plus grand empire colonial de l'histoire. <strong>Pourquoi ?</strong> 5 raisons entremêlées : démographique, économique, géopolitique, religieuse, identitaire.
+        </div>
+
+        <h3>5 raisons de l'expansion</h3>
+        <div class="list-item"><strong>Démographique</strong> — "Safety valve" : exporter les pauvres sans-terre (suite aux enclosures) pour éviter les révoltes.</div>
+        <div class="list-item"><strong>Économique</strong> — Contrôler les routes maritimes, exploiter les ressources, commerce. Esclavage central (1554-1833).</div>
+        <div class="list-item"><strong>Géopolitique</strong> — Rivaliser avec l'Espagne, Portugal, France, Allemagne, Pays-Bas.</div>
+        <div class="list-item"><strong>Religieux</strong> — Diffuser le protestantisme, accueillir les Puritains persécutés (Pilgrim Fathers, 1620).</div>
+        <div class="list-item"><strong>Identitaire</strong> — Cimenter l'unité nationale (Angleterre, Écosse, Pays de Galles, Irlande). Jingoisme = nationalisme agressif.</div>
+
+        <h3>Chronologie clé</h3>
+        <div class="timeline">
+          <div class="tl-item"><span class="tl-date">1607</span><span class="tl-text">Jamestown (Virginie) — 1re expansion en Amérique du Nord</span></div>
+          <div class="tl-item"><span class="tl-date">1620</span><span class="tl-text">Mayflower — Pilgrim Fathers en Nouvelle-Angleterre</span></div>
+          <div class="tl-item"><span class="tl-date">1776-83</span><span class="tl-text">Indépendance américaine — 1er traumatisme de décolonisation</span></div>
+          <div class="tl-item"><span class="tl-date">1807/1833</span><span class="tl-text">Abolition traite négrière / de l'esclavage</span></div>
+          <div class="tl-item"><span class="tl-date">1867</span><span class="tl-text">Canada → 1er Dominion</span></div>
+          <div class="tl-item"><span class="tl-date">1877</span><span class="tl-text">Victoria déclarée Impératrice des Indes</span></div>
+          <div class="tl-item"><span class="tl-date">1884-85</span><span class="tl-text">Conférence de Berlin → Scramble for Africa</span></div>
+          <div class="tl-item"><span class="tl-date">1947</span><span class="tl-text">Indépendance de l'Inde → Inde + Pakistan</span></div>
+          <div class="tl-item"><span class="tl-date">1997</span><span class="tl-text">Rétrocession de Hong-Kong à la Chine</span></div>
+        </div>
+
+        <h3>Citations à retenir</h3>
+        <div class="def-box"><strong>J. R. Seeley (1883)</strong> — "We seem to have conquered and peopled half the world in a fit of absence of mind."</div>
+        <div class="def-box"><strong>Edward Said (1993)</strong> — Culture and Imperialism → l'Irlande comme cas post-colonial européen.</div>
+
+        <h3>Vocabulaire clé</h3>
+        <div class="tag-row">
+          <span class="tag orange">Safety valve</span><span class="tag orange">Jingoism</span><span class="tag orange">Dominion</span><span class="tag orange">Post-colonialism</span><span class="tag orange">Plantocracy</span><span class="tag orange">Special relationship</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANG CM2 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">02</span>
+          <div>
+            <div class="card-title-text">Textile, the Industrial Revolution and Empire</div>
+            <div class="card-subtitle">Coton, Manchester, Gandhi, désindustrialisation</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box">
+          <span class="label">Idée centrale</span>
+          La révolution industrielle et l'Empire sont <strong>inséparables</strong>. Le textile en est la preuve : coton brut des colonies → usines Lancashire → produits exportés → destruction industries locales → immigration → désindustrialisation → délocalisation.
+        </div>
+
+        <h3>Chronologie clé</h3>
+        <div class="timeline">
+          <div class="tl-item"><span class="tl-date">18e s.</span><span class="tl-text">Révolution industrielle. Spinning-jenny (eau). Textile = première industrie révolutionnée.</span></div>
+          <div class="tl-item"><span class="tl-date">1776</span><span class="tl-text">Adam Smith, The Wealth of Nations — préfigure la révolution industrielle</span></div>
+          <div class="tl-item"><span class="tl-date">1794-1806</span><span class="tl-text">Coton passe de 15,6% à 42,3% des exportations britanniques</span></div>
+          <div class="tl-item"><span class="tl-date">1861-65</span><span class="tl-text">Guerre de Sécession → l'Inde tente de remplacer le coton US (échec)</span></div>
+          <div class="tl-item"><span class="tl-date">1870-1930</span><span class="tl-text">Manchester = capitale mondiale du textile. Déclin dès 1920.</span></div>
+          <div class="tl-item"><span class="tl-date">1931</span><span class="tl-text">Gandhi visite le Lancashire — malentendu politique majeur</span></div>
+          <div class="tl-item"><span class="tl-date">1950s</span><span class="tl-text">Recrutement massif d'immigrés pakistanais/indiens pour les usines</span></div>
+          <div class="tl-item"><span class="tl-date">1980s</span><span class="tl-text">Fermeture des usines. Délocalisation au Bangladesh, Inde, Chine.</span></div>
+          <div class="tl-item"><span class="tl-date">2013</span><span class="tl-text">Effondrement Rana Plaza (Bangladesh) — 1100 morts.</span></div>
+        </div>
+
+        <h3>Concepts clés</h3>
+        <div class="list-item"><strong>Coton brut vs manufacturé</strong> — Les colonies fournissent la matière brute, la GB garde la valeur ajoutée.</div>
+        <div class="list-item"><strong>Désindustrialisation</strong> — Commence avant 1973. Le textile décline dès 1920. En Bengale, avant même l'industrialisation locale.</div>
+        <div class="list-item"><strong>Ironies du capitalisme</strong> — GB détruit textile indien → recrute des Indiens → délocalise en Inde. Rana Plaza = exploitation déplacée.</div>
+        <div class="list-item"><strong>Visite Gandhi 1931</strong> — Pas venue pour sauver les ouvriers, mais pour expliquer le nationalisme indien. Le boycott = "nécessité spirituelle".</div>
+
+        <h3>Citations à retenir</h3>
+        <div class="def-box"><strong>Sven Beckert</strong> — L'empire du coton était "a fulcrum of constant global struggle between slaves and planters, merchants and statesmen, workers and factory owners."</div>
+
+        <h3>Vocabulaire clé</h3>
+        <div class="tag-row">
+          <span class="tag orange">Spinning-jenny</span><span class="tag orange">A breakthrough</span><span class="tag orange">Ubiquitous</span><span class="tag orange">A fulcrum</span><span class="tag orange">Received wisdom</span><span class="tag orange">Khadi</span><span class="tag orange">Deindustrialisation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANG CM3 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">03</span>
+          <div>
+            <div class="card-title-text">North America, the Caribbean Zone and Slavery</div>
+            <div class="card-subtitle">Esclavage, abolition, paradoxes historiques</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box">
+          <span class="label">Idée centrale</span>
+          La GB a été <strong>à la fois bourreau et abolisseur</strong>. L'esclavage n'est pas simplement "sudiste". L'histoire est pleine de paradoxes : Locke = philosophe des Lumières ET actionnaire de la traite. 1833 : les maîtres indemnisés, pas les esclaves.
+        </div>
+
+        <h3>Chiffres clés — destination des esclaves</h3>
+        <div class="tag-row">
+          <span class="tag orange">Brésil : 45%</span>
+          <span class="tag orange">Caraïbes : 37%</span>
+          <span class="tag orange">Amérique espagnole : 11%</span>
+          <span class="tag orange">Amérique du Nord : 4%</span>
+        </div>
+
+        <h3>Chronologie</h3>
+        <div class="timeline">
+          <div class="tl-item"><span class="tl-date">1444</span><span class="tl-text">1res razzias organisées par le Portugal en Mauritanie</span></div>
+          <div class="tl-item"><span class="tl-date">1735</span><span class="tl-text">Oglethorpe interdit l'esclavage en Géorgie (pragmatisme, pas humanisme)</span></div>
+          <div class="tl-item"><span class="tl-date">1807</span><span class="tl-text">Abolition de la traite négrière (GB)</span></div>
+          <div class="tl-item"><span class="tl-date">1833</span><span class="tl-text">Abolition de l'esclavage (GB) — les maîtres indemnisés, pas les esclaves</span></div>
+          <div class="tl-item"><span class="tl-date">1865</span><span class="tl-text">Abolition aux USA (13e amendement)</span></div>
+          <div class="tl-item"><span class="tl-date">1888</span><span class="tl-text">Abolition au Brésil — dernier pays</span></div>
+          <div class="tl-item"><span class="tl-date">1964</span><span class="tl-text">Malcolm X à Oxford — critique de l'Empire comme "plus grand esclavagiste"</span></div>
+        </div>
+
+        <h3>Paradoxes à connaître</h3>
+        <div class="list-item"><strong>Locke</strong> — Philosophe des Lumières ET actionnaire de la Royal African Company.</div>
+        <div class="list-item"><strong>Oglethorpe</strong> — Interdit l'esclavage non par humanisme, mais parce que ça rendait les Blancs moralement corrompus.</div>
+        <div class="list-item"><strong>Irlande</strong> — Cas post-colonial unique : Blancs sur Blancs, domination par religion (protestants > catholiques). Edward Said.</div>
+        <div class="list-item"><strong>Le Nord américain</strong> — A abandonné l'esclavage pour des raisons économiques, pas humanitaires.</div>
+
+        <h3>Personnages clés</h3>
+        <div class="two-col">
+          <div class="mini-card"><div class="mc-title">Olaudah Equiano</div><p>Esclave capturé au Nigeria, rachète sa liberté, devient militant abolitionniste en GB.</p></div>
+          <div class="mini-card"><div class="mc-title">Frederick Douglass</div><p>Esclave au Maryland, s'échappe, devient grand orateur anti-esclavagiste aux USA.</p></div>
+          <div class="mini-card"><div class="mc-title">Toussaint L'Ouverture</div><p>Meilleur exemple de révolte d'esclaves — Haïti. La résistance est venue des esclaves eux-mêmes.</p></div>
+          <div class="mini-card"><div class="mc-title">Malcolm X (1964)</div><p>Oxford : dénonce que les maîtres ont été indemnisés, pas les esclaves.</p></div>
+        </div>
+
+        <h3>Vocabulaire clé</h3>
+        <div class="tag-row">
+          <span class="tag orange">Chattel</span><span class="tag orange">Middle Passage</span><span class="tag orange">An auction</span><span class="tag orange">Plantocracy</span><span class="tag orange">To entrench</span><span class="tag orange">Devoid of</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /anglais cards -->
+
+  <!-- ===== MANAGEMENT ===== -->
+  <div id="management" class="section-header">
+    <span class="section-pill pill-mana">Management</span>
+    <span class="section-title">Des organisations</span>
+  </div>
+  <div class="cards">
+
+    <!-- MANA CM1 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">01</span>
+          <div>
+            <div class="card-title-text">Qu'est-ce qu'une organisation ? Le management ?</div>
+            <div class="card-subtitle">Définitions, 3 types d'organisations, niveaux de management</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box">
+          <span class="label blue">Robbins — Définition organisation</span>
+          "Un ensemble de moyens structurés constituant une unité de coordination ayant des frontières identifiables, fonctionnant en continu en vue d'atteindre un ensemble d'objectifs partagés par les membres participants."
+        </div>
+        <div class="def-box">
+          <span class="label blue">Thiétart (1996) — Définition management</span>
+          "L'art ou la manière de conduire une organisation, de la diriger, de planifier son développement, de la contrôler, et ce dans tous les domaines d'activité de l'organisation."
+        </div>
+
+        <h3>Pourquoi les organisations existent ?</h3>
+        <div class="list-item"><strong>Crozier</strong> — "L'organisation est une réponse au problème de l'action collective" → division et coordination</div>
+        <div class="list-item"><strong>Dobb / Alchian & Demetz</strong> — Mettre en commun les outils de production</div>
+        <div class="list-item"><strong>Knight</strong> — Pour prendre en charge le risque</div>
+        <div class="list-item"><strong>Coase</strong> (Nobel 1993) — Alternative au marché, réduit les coûts de transaction</div>
+
+        <h3>3 types d'organisations</h3>
+        <div class="three-col">
+          <div class="mini-card"><div class="mc-title" style="color:#3b9eff">Entreprise</div><p>Privée, finalité lucrative. Crée de la valeur ajoutée.</p></div>
+          <div class="mini-card"><div class="mc-title" style="color:#22c55e">OSC</div><p>Privée, non lucrative. Service non marchand. Asso loi 1901, ONG, syndicats.</p></div>
+          <div class="mini-card"><div class="mc-title" style="color:#a855f7">Organisation publique</div><p>Finalité service public. Continuité + Égalité + Adaptabilité.</p></div>
+        </div>
+
+        <h3>Taille des entreprises</h3>
+        <div class="table-wrap"><table>
+          <tr><th>Type</th><th>Salariés</th><th>CA annuel</th></tr>
+          <tr><td><strong>Microentreprise (MIC)</strong></td><td>&lt; 10</td><td>&lt; 2 M€</td></tr>
+          <tr><td><strong>PME</strong></td><td>&lt; 250</td><td>&lt; 50 M€</td></tr>
+          <tr><td><strong>ETI</strong></td><td>&lt; 5 000</td><td>&lt; 1 500 M€</td></tr>
+          <tr><td><strong>Grande entreprise</strong></td><td>≥ 5 000</td><td>&gt; 1,5 Mds€</td></tr>
+        </table></div>
+
+        <h3>Niveaux de management</h3>
+        <div class="list-item"><strong>Stratégique</strong> — Long terme, décisions irréversibles, moyens importants.</div>
+        <div class="list-item"><strong>Opérationnel</strong> — Court/moyen terme, mise en œuvre des décisions stratégiques.</div>
+
+        <div class="alert blue">Conclusion clé : Il n'y a pas une seule "bonne manière" de gérer une organisation — tout dépend des facteurs de contingence (type, taille, âge, environnement, culture, jeux d'acteurs).</div>
+      </div>
+    </div>
+
+    <!-- MANA CM2 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">02</span>
+          <div>
+            <div class="card-title-text">Finalités, RSE et responsabilités</div>
+            <div class="card-subtitle">Parties prenantes, Loi PACTE, modèles durables</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box">
+          <span class="label blue">RSE (Commission Européenne, 2011)</span>
+          "Responsabilité des entreprises vis-à-vis des effets qu'elle exerce sur la société." = déclinaison du Développement Durable au niveau de l'entreprise : <strong>3P = People, Planet, Profit</strong>
+        </div>
+        <div class="def-box">
+          <span class="label blue">Développement durable (Brundtland, 1987)</span>
+          "Permet de répondre aux besoins des générations actuelles sans compromettre la possibilité de répondre à ceux des générations futures."
+        </div>
+        <div class="def-box">
+          <span class="label blue">Partie prenante (Freeman)</span>
+          "Tout groupe ou individu pouvant affecter ou être affecté par la mise en œuvre des objectifs d'une organisation."
+        </div>
+
+        <h3>PP primaires vs secondaires (Clarkson)</h3>
+        <div class="two-col">
+          <div class="mini-card"><div class="mc-title">Primaires</div><p>Lien direct productif/financier. Ex : salariés, actionnaires, clients, fournisseurs, banques.</p></div>
+          <div class="mini-card"><div class="mc-title">Secondaires</div><p>Sans transaction directe. Ex : opinion publique, État, ONG, riverains.</p></div>
+        </div>
+
+        <h3>Vision instrumentale de la RSE</h3>
+        <div class="list-item"><strong>État</strong> — Légitimité → obtenir des permis plus facilement</div>
+        <div class="list-item"><strong>Concurrents</strong> — Standards stricts → élever les coûts pour les concurrents</div>
+        <div class="list-item"><strong>Salariés</strong> — Attirer les talents, augmenter l'implication</div>
+        <div class="list-item"><strong>Clients</strong> — Instrument marketing → augmenter les ventes</div>
+        <div class="list-item"><strong>Actionnaires</strong> — Attirer les fonds ISR</div>
+        <div class="alert">⚠️ 54,7% des décisions RSE ne sont jamais réellement prises en compte. (Étude Ifa/Orse/PWC, 2022)</div>
+
+        <h3>Cadre légal</h3>
+        <div class="list-item"><strong>Loi PACTE (2019)</strong> — L'entreprise doit être "gérée dans son intérêt social, en prenant en considération les enjeux sociaux et environnementaux." → crée la société à mission.</div>
+        <div class="list-item"><strong>CSRD</strong> — Rapport de durabilité obligatoire pour >250 salariés ou 50M€ CA</div>
+        <div class="list-item"><strong>CSDDD</strong> — Respect droits humains sur toute la chaîne d'approvisionnement (>1000 sal, CA >450M€)</div>
+
+        <h3>3 modèles durables</h3>
+        <div class="three-col">
+          <div class="mini-card"><div class="mc-title">Économie circulaire</div><p>Zéro déchet, ressources réutilisées sur tout le cycle de vie du produit.</p></div>
+          <div class="mini-card"><div class="mc-title">Économie de la fonctionnalité</div><p>Vendre l'usage, pas le bien. Rifkin : "l'usage prévaut sur la propriété."</p></div>
+          <div class="mini-card"><div class="mc-title">Économie collaborative</div><p>Partage entre particuliers via plateforme numérique. Ex : Blablacar, Airbnb.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANA CM3 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">03</span>
+          <div>
+            <div class="card-title-text">Stratégie, gouvernance et pouvoir</div>
+            <div class="card-subtitle">LCAG, SWOT, Porter, Fayol, Crozier, SCOP</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <h3>Modèle LCAG — 5 étapes</h3>
+        <div class="tag-row">
+          <span class="tag blue">1. Finalité</span><span class="tag" style="color:#666">→</span>
+          <span class="tag blue">2. Diagnostic SWOT</span><span class="tag" style="color:#666">→</span>
+          <span class="tag blue">3. Conception stratégie</span><span class="tag" style="color:#666">→</span>
+          <span class="tag blue">4. Mise en œuvre</span><span class="tag" style="color:#666">→</span>
+          <span class="tag blue">5. Contrôle & rétroaction</span>
+        </div>
+
+        <h3>SWOT</h3>
+        <div class="two-col">
+          <div class="mini-card"><div class="mc-title" style="color:#22c55e">Forces / Opportunités (+)</div><p>Forces = interne. Opportunités = externe.</p></div>
+          <div class="mini-card"><div class="mc-title" style="color:#ef4444">Faiblesses / Menaces (−)</div><p>Faiblesses = interne. Menaces = externe (PESTEL).</p></div>
+        </div>
+
+        <h3>4 stratégies globales</h3>
+        <div class="table-wrap"><table>
+          <tr><th>Stratégie</th><th>Principe</th><th>Avantage</th><th>Limite</th></tr>
+          <tr><td><strong>Spécialisation</strong></td><td>1 seul DAS</td><td>Image forte, effet d'expérience</td><td>Rigidité, dépendance</td></tr>
+          <tr><td><strong>Intégration verticale</strong></td><td>Faire soi-même ce que fait le fournisseur/client</td><td>Maîtrise logistique, marges</td><td>Investissements lourds</td></tr>
+          <tr><td><strong>Diversification</strong></td><td>Nouveaux DAS</td><td>Diversification des risques</td><td>Image confuse, complexité</td></tr>
+          <tr><td><strong>Internationalisation</strong></td><td>Même activité, autres marchés</td><td>Nouveaux marchés</td><td>Risques culturels, politiques</td></tr>
+        </table></div>
+
+        <h3>3 stratégies de domaine (Porter)</h3>
+        <div class="three-col">
+          <div class="mini-card"><div class="mc-title">Domination par les coûts</div><p>Prix plus bas. Captation de parts de marché.</p></div>
+          <div class="mini-card"><div class="mc-title">Différenciation</div><p>Produit unique. Fidélisation, marges élevées.</p></div>
+          <div class="mini-card"><div class="mc-title">Concentration</div><p>Niche de marché. Évite la concurrence frontale.</p></div>
+        </div>
+
+        <h3>Qui a le pouvoir ?</h3>
+        <div class="list-item"><strong>Fayol (1916)</strong> — Les dirigeants. 5 fonctions : Prévoir, Organiser, Commander, Coordonner, Contrôler.</div>
+        <div class="list-item"><strong>Moreno (1933)</strong> — Sociogramme : le pouvoir réel suit les relations affectives.</div>
+        <div class="list-item"><strong>Crozier & Friedberg (1977)</strong> — Tout acteur maîtrisant une zone d'incertitude a du pouvoir. Sources : compétence rare, info, lien avec PP clé.</div>
+
+        <h3>Gouvernance — 3 pouvoirs (Gomez, 2021)</h3>
+        <div class="three-col">
+          <div class="mini-card"><div class="mc-title" style="color:#f59e0b">Souverain</div><p>Actionnaires (AG). Votent les comptes, désignent les administrateurs.</p></div>
+          <div class="mini-card"><div class="mc-title" style="color:#22c55e">Exécutif</div><p>Dirigeants. Définissent et mettent en œuvre la stratégie.</p></div>
+          <div class="mini-card"><div class="mc-title" style="color:#3b9eff">Surveillance</div><p>CA ou Conseil de surveillance. Nomment le dirigeant, contrôlent.</p></div>
+        </div>
+
+        <div class="alert blue">Coopératives (SCOP/SCIC) : principe <strong>1 personne = 1 voix</strong>, quelle que soit la part du capital détenu.</div>
+      </div>
+    </div>
+
+    <!-- MANA CM4 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">04</span>
+          <div>
+            <div class="card-title-text">Relation aux travailleur.ses</div>
+            <div class="card-subtitle">Taylor → Maslow → Herzberg — 4 époques, tous les auteurs</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <h3>4 grandes étapes</h3>
+        <div class="table-wrap"><table>
+          <tr><th>Période</th><th>Logique</th><th>Auteurs</th></tr>
+          <tr><td><strong>1900–1930</strong></td><td>Organiser pour produire efficacement</td><td>Taylor, Fayol, Weber</td></tr>
+          <tr><td><strong>1930–1960</strong></td><td>Motiver l'individu</td><td>Mayo, Maslow, Lewin, McGregor</td></tr>
+          <tr><td><strong>1960–1970</strong></td><td>Adapter la structure</td><td>Woodward, Chandler, Burns & Stalker, Mintzberg</td></tr>
+          <tr><td><strong>1970–</strong></td><td>Mobiliser et faire participer</td><td>Herzberg, Sainsaulieu, Hofstede</td></tr>
+        </table></div>
+
+        <h3>Auteurs clés</h3>
+        <div class="list-item"><strong>Taylor</strong> — OST. Division verticale (qui décide/qui exécute) et horizontale (tâches répétitives). "L'efficacité individuelle tombe au niveau du plus mauvais de l'équipe."</div>
+        <div class="list-item"><strong>Fayol (1916)</strong> — 6 fonctions de l'entreprise. 5 fonctions du dirigeant : Prévoir, Organiser, Commander, Coordonner, Contrôler.</div>
+        <div class="list-item"><strong>Weber</strong> — Bureaucratie = idéal-type de l'autorité rationnelle-légale. Les règles = stabilité.</div>
+        <div class="list-item"><strong>Mayo (1924-29)</strong> — Expériences Hawthorne. Être valorisé suffit à motiver (effet Hawthorne).</div>
+        <div class="list-item"><strong>Maslow (1943)</strong> — Pyramide des 5 besoins : physiologiques → sécurité → appartenance → estime → accomplissement.</div>
+        <div class="list-item"><strong>Lewin</strong> — Dynamique de groupe. Le débat collectif favorise le passage à l'acte.</div>
+        <div class="list-item"><strong>Lippit & White</strong> — 3 styles : autoritaire, démocratique, permissif.</div>
+        <div class="list-item"><strong>McGregor</strong> — Théorie X (paresseux, contrôler) vs Théorie Y (créatif, responsabiliser).</div>
+        <div class="list-item"><strong>Herzberg (1971)</strong> — Bi-factorielle. Facteurs d'hygiène (absence = insatisfaction). Facteurs de motivation (présence = satisfaction). Augmenter le salaire seul ne suffit pas.</div>
+        <div class="list-item"><strong>Sainsaulieu</strong> — Implication = partage des valeurs + intérêt personnel.</div>
+        <div class="list-item"><strong>Hofstede</strong> — 5 dimensions culturelles : distance hiérarchique, contrôle incertitude, individualisme, masculinité/féminité, relation au temps.</div>
+      </div>
+    </div>
+
+    <!-- MANA CM5 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">05</span>
+          <div>
+            <div class="card-title-text">Comment organiser le travail ?</div>
+            <div class="card-subtitle">Structures, Mintzberg, Chandler, Burns & Stalker, chaîne de valeur</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box">
+          <span class="label blue">Structure (Mintzberg)</span>
+          "La somme totale des moyens employés pour diviser le travail entre tâches distinctes et pour ensuite assurer la coordination entre ces tâches."
+        </div>
+
+        <h3>4 formes de structure (organigramme)</h3>
+        <div class="two-col">
+          <div class="mini-card"><div class="mc-title">Entrepreneuriale</div><p>Leader central + quelques collaborateurs. Start-up, TPE.</p></div>
+          <div class="mini-card"><div class="mc-title">Fonctionnelle</div><p>Par grandes fonctions (production, commercial…). PME-ETI.</p></div>
+          <div class="mini-card"><div class="mc-title">Divisionnelle</div><p>Divisions autonomes par produit ou zone. Grandes entreprises diversifiées.</p></div>
+          <div class="mini-card"><div class="mc-title">Matricielle/projet</div><p>Double rattachement fonctionnel + projet. Flexible mais complexe.</p></div>
+        </div>
+
+        <h3>6 configurations Mintzberg</h3>
+        <div class="table-wrap"><table>
+          <tr><th>Configuration</th><th>Caractéristique</th><th>Exemple</th></tr>
+          <tr><td><strong>Structure simple</strong></td><td>Sommet stratégique dominant</td><td>Start-up</td></tr>
+          <tr><td><strong>Bureaucratie mécaniste</strong></td><td>Forte standardisation des procédés</td><td>Usine de masse</td></tr>
+          <tr><td><strong>Bureaucratie professionnelle</strong></td><td>Professionnels autonomes</td><td>Hôpital, cabinet</td></tr>
+          <tr><td><strong>Structure divisionnalisée</strong></td><td>Divisions semi-autonomes</td><td>Grande entreprise</td></tr>
+          <tr><td><strong>Adhocratie</strong></td><td>Très flexible, innovation permanente</td><td>Agence créative, R&D</td></tr>
+          <tr><td><strong>Organisation missionnaire</strong></td><td>Culture/idéologie dominante</td><td>ONG, coopérative engagée</td></tr>
+        </table></div>
+
+        <h3>Déterminants de la structure</h3>
+        <div class="list-item"><strong>Chandler</strong> — "La stratégie influence la structure." Diversification → structure divisionnelle.</div>
+        <div class="list-item"><strong>Woodward</strong> — La technologie influence la structure. Production de masse → forte formalisation. Production unitaire → souple.</div>
+        <div class="list-item"><strong>Coase</strong> — Internaliser si coûts transaction > coûts bureaucratiques. Externaliser si inverse.</div>
+        <div class="list-item"><strong>Burns & Stalker</strong> — Environnement stable → structure mécaniste. Environnement instable → structure organique (flexible).</div>
+
+        <h3>Chaîne de valeur (Porter)</h3>
+        <div class="list-item"><strong>Activités principales</strong> — Logistique interne → Production → Logistique externe → Commercialisation → Services.</div>
+        <div class="list-item"><strong>Activités de soutien</strong> — Infrastructure + GRH + R&D technologique + Approvisionnements.</div>
+      </div>
+    </div>
+
+    <!-- MANA CM6 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">06</span>
+          <div>
+            <div class="card-title-text">Comment financer l'organisation ?</div>
+            <div class="card-subtitle">Besoins, banques, actionnaires, théorie de l'agence</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <h3>2 sources du besoin de financement</h3>
+        <div class="list-item"><strong>Cycle d'exploitation</strong> — Décalage entre dépenses et recettes. Augmente si stocks↑ + délais clients↑ + délais fournisseurs↓.</div>
+        <div class="list-item"><strong>Investissement</strong> — Actif durable (>1 an). 3 objectifs : capacité (produire plus), productivité (produire mieux), modernisation.</div>
+
+        <h3>Modes de financement</h3>
+        <div class="table-wrap"><table>
+          <tr><th>Mode</th><th>Avantages</th><th>Inconvénients</th></tr>
+          <tr><td><strong>Autofinancement</strong></td><td>Indépendance totale</td><td>Limité aux bénéfices</td></tr>
+          <tr><td><strong>Emprunt bancaire</strong></td><td>Rapide, accessible</td><td>Montant limité, frais complexes</td></tr>
+          <tr><td><strong>Emprunt obligataire</strong></td><td>Sommes importantes</td><td>Coût élevé, surendettement</td></tr>
+          <tr><td><strong>Émission d'actions</strong></td><td>Pas de remboursement</td><td>Transfert de pouvoir, coûts élevés</td></tr>
+          <tr><td><strong>Capital investissement</strong></td><td>Finance la création/innovation</td><td>Rentabilité court terme 20-25% exigée</td></tr>
+          <tr><td><strong>Crowdfunding</strong></td><td>Contourne les banques</td><td>Coût élevé, seuls projets attractifs</td></tr>
+        </table></div>
+
+        <h3>Types d'actionnaires</h3>
+        <div class="table-wrap"><table>
+          <tr><th>Type</th><th>Poids décisions</th><th>Stabilité</th></tr>
+          <tr><td><strong>Grand public</strong></td><td>Infime</td><td>Non</td></tr>
+          <tr><td><strong>Famille</strong> (ex: Bonduelle)</td><td>Fort</td><td>Très stable</td></tr>
+          <tr><td><strong>Salariés</strong></td><td>Faible</td><td>Stable</td></tr>
+          <tr><td><strong>Institutionnels</strong></td><td>Variable</td><td>Instable</td></tr>
+          <tr><td><strong>Entreprises</strong></td><td>Très important</td><td>Stable</td></tr>
+          <tr><td><strong>État</strong></td><td>Très important</td><td>Très stable</td></tr>
+        </table></div>
+
+        <h3>2 risques de l'actionnariat</h3>
+        <div class="list-item"><strong>Théorie de l'agence (Jensen & Meckling)</strong> — Actionnaires (principal) délèguent aux dirigeants (agent). Intérêts divergents → dirigeants peuvent agir pour eux-mêmes. Ex : Bernard Charlès, PDG Dassault Systèmes → 46,8M€ en 2023.</div>
+        <div class="list-item"><strong>Rentabilité court terme</strong> — Fonds d'investissement exigent 20-25% de retour sur 3-7 ans. Incompatible avec vision industrielle longue.</div>
+
+        <div class="alert blue">Les émissions d'actions financent en réalité très peu l'investissement productif réel. (Auvray, Dallery et Rigot, 2016)</div>
+      </div>
+    </div>
+
+  </div><!-- /management cards -->
+
+  <!-- ===== DROIT ===== -->
+  <div id="droit" class="section-header">
+    <span class="section-pill" style="background:rgba(168,85,247,0.15);color:#a855f7">Droit</span>
+    <span class="section-title">De l'entreprise</span>
+  </div>
+  <div class="cards">
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left">
+          <span class="card-num">01</span>
+          <div>
+            <div class="card-title-text">Fiches droit à venir</div>
+            <div class="card-subtitle">Envoie tes cours de droit pour compléter cette section</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="alert">📂 Cette section sera complétée dès que tu envoies tes cours de droit de l'entreprise. Envoie-les dans le chat et les fiches seront ajoutées ici.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section-wrap -->
+
+<footer>
+  Fait avec ❤️ pour tes rattrapages · L2 LEA Lille · <span>Bon courage le 2 juin !</span>
+</footer>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+  function scrollTo(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>
