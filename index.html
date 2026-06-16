@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/revisions_l2_lea.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,18 +17,12 @@
     --accent-ang: #ff6b35;
     --accent-mana: #3b9eff;
     --accent-droit: #a855f7;
+    --accent-geo: #22c55e;
     --accent-ok: #22c55e;
     --radius: 12px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-  }
-
-  /* NAV */
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
   nav {
     position: sticky; top: 0; z-index: 100;
     background: rgba(14,15,19,0.92);
@@ -37,144 +32,47 @@
     display: flex; align-items: center; gap: 0;
     overflow-x: auto;
   }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 15px;
-    color: var(--text);
-    white-space: nowrap;
-    padding: 16px 20px 16px 0;
-    border-right: 1px solid var(--border);
-    margin-right: 8px;
-    flex-shrink: 0;
-  }
-  .nav-tab {
-    padding: 16px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color .2s;
-    border-bottom: 2px solid transparent;
-    flex-shrink: 0;
-  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--text); white-space: nowrap; padding: 16px 20px 16px 0; border-right: 1px solid var(--border); margin-right: 8px; flex-shrink: 0; }
+  .nav-tab { padding: 16px 14px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; transition: color .2s; border-bottom: 2px solid transparent; flex-shrink: 0; }
   .nav-tab:hover { color: var(--text); }
   .nav-tab.active-ang { color: var(--accent-ang); border-bottom-color: var(--accent-ang); }
   .nav-tab.active-mana { color: var(--accent-mana); border-bottom-color: var(--accent-mana); }
-
-  /* HERO */
-  .hero {
-    padding: 60px 24px 40px;
-    max-width: 900px; margin: 0 auto;
-  }
-  .hero-label {
-    font-size: 11px; font-weight: 600; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--muted);
-    margin-bottom: 12px;
-  }
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 800; line-height: 1.1;
-    margin-bottom: 16px;
-  }
+  .nav-tab.active-geo { color: var(--accent-geo); border-bottom-color: var(--accent-geo); }
+  .hero { padding: 60px 24px 40px; max-width: 900px; margin: 0 auto; }
+  .hero-label { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
   .hero h1 span.ang { color: var(--accent-ang); }
   .hero h1 span.mana { color: var(--accent-mana); }
-  .hero p {
-    color: var(--muted); font-size: 15px; line-height: 1.7;
-    max-width: 560px; margin-bottom: 28px;
-  }
-  .countdown {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,107,53,0.12);
-    border: 1px solid rgba(255,107,53,0.25);
-    border-radius: 100px;
-    padding: 8px 16px;
-    font-size: 13px; font-weight: 500;
-    color: var(--accent-ang);
-  }
+  .hero h1 span.geo { color: var(--accent-geo); }
+  .hero p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 560px; margin-bottom: 28px; }
+  .countdown { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,107,53,0.12); border: 1px solid rgba(255,107,53,0.25); border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 500; color: var(--accent-ang); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-ang); animation: pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-  /* SECTIONS */
   .section-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
-  .section-header {
-    display: flex; align-items: center; gap: 12px;
-    margin: 48px 0 24px;
-  }
-  .section-pill {
-    font-size: 11px; font-weight: 700; letter-spacing: .1em;
-    text-transform: uppercase; padding: 4px 12px;
-    border-radius: 100px;
-  }
+  .section-header { display: flex; align-items: center; gap: 12px; margin: 48px 0 24px; }
+  .section-pill { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
   .pill-ang { background: rgba(255,107,53,0.15); color: var(--accent-ang); }
   .pill-mana { background: rgba(59,158,255,0.15); color: var(--accent-mana); }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px; font-weight: 700;
-  }
-
-  /* CARDS */
+  .pill-geo { background: rgba(34,197,94,0.15); color: var(--accent-geo); }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; }
   .cards { display: grid; gap: 12px; }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color .2s, transform .15s;
-    cursor: pointer;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color .2s, transform .15s; cursor: pointer; }
   .card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-1px); }
-  .card-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 20px; gap: 12px;
-  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; gap: 12px; }
   .card-left { display: flex; align-items: center; gap: 14px; }
-  .card-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px; font-weight: 700;
-    color: var(--muted); min-width: 28px;
-  }
-  .card-title-text {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px; font-weight: 600;
-  }
+  .card-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); min-width: 28px; }
+  .card-title-text { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; }
   .card-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .chevron {
-    color: var(--muted); font-size: 14px;
-    transition: transform .25s;
-    flex-shrink: 0;
-  }
+  .chevron { color: var(--muted); font-size: 14px; transition: transform .25s; flex-shrink: 0; }
   .card.open .chevron { transform: rotate(180deg); }
-  .card-body {
-    display: none;
-    padding: 0 20px 20px;
-    border-top: 1px solid var(--border);
-    animation: fadeIn .2s ease;
-  }
+  .card-body { display: none; padding: 0 20px 20px; border-top: 1px solid var(--border); animation: fadeIn .2s ease; }
   .card.open .card-body { display: block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:none} }
-
-  /* CONTENT STYLES */
-  .def-box {
-    background: var(--surface2);
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin: 14px 0 8px;
-    font-size: 13.5px;
-    line-height: 1.7;
-    color: var(--muted);
-  }
+  .def-box { background: var(--surface2); border-radius: 8px; padding: 14px 16px; margin: 14px 0 8px; font-size: 13.5px; line-height: 1.7; color: var(--muted); }
   .def-box strong { color: var(--text); }
-  .def-box .label {
-    font-size: 11px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--accent-ang);
-    margin-bottom: 6px; display: block;
-  }
+  .def-box .label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ang); margin-bottom: 6px; display: block; }
   .def-box .label.blue { color: var(--accent-mana); }
   .def-box .label.purple { color: var(--accent-droit); }
-
   .timeline { margin: 14px 0; display: flex; flex-direction: column; gap: 0; }
   .tl-item { display: flex; gap: 14px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .tl-item:last-child { border-bottom: none; }
@@ -182,62 +80,31 @@
   .tl-date.blue { color: var(--accent-mana); }
   .tl-text { color: var(--muted); line-height: 1.6; }
   .tl-text strong { color: var(--text); }
-
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
-  .tag {
-    font-size: 11.5px; font-weight: 500; padding: 4px 10px;
-    border-radius: 100px;
-    background: var(--surface2);
-    color: var(--muted);
-    border: 1px solid var(--border);
-  }
+  .tag { font-size: 11.5px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
   .tag.orange { background: rgba(255,107,53,0.1); color: var(--accent-ang); border-color: rgba(255,107,53,0.2); }
   .tag.blue { background: rgba(59,158,255,0.1); color: var(--accent-mana); border-color: rgba(59,158,255,0.2); }
   .tag.purple { background: rgba(168,85,247,0.1); color: var(--accent-droit); border-color: rgba(168,85,247,0.2); }
-
   h3 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin: 16px 0 8px; letter-spacing: .04em; text-transform: uppercase; }
   .list-item { font-size: 13.5px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.6; }
   .list-item:last-child { border-bottom: none; }
   .list-item strong { color: var(--text); }
-
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
   @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
   .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 12px 0; }
   @media(max-width:600px){ .three-col { grid-template-columns: 1fr; } }
-
-  .mini-card {
-    background: var(--surface2); border-radius: 8px;
-    padding: 12px 14px; font-size: 12.5px;
-  }
+  .mini-card { background: var(--surface2); border-radius: 8px; padding: 12px 14px; font-size: 12.5px; }
   .mini-card .mc-title { font-weight: 600; color: var(--text); margin-bottom: 4px; font-size: 13px; }
   .mini-card p { color: var(--muted); line-height: 1.5; }
-
-  .alert {
-    background: rgba(255,107,53,0.08);
-    border: 1px solid rgba(255,107,53,0.2);
-    border-radius: 8px; padding: 12px 14px;
-    font-size: 13px; color: #ffb38a; line-height: 1.6;
-    margin: 12px 0;
-  }
-  .alert.blue {
-    background: rgba(59,158,255,0.08);
-    border-color: rgba(59,158,255,0.2);
-    color: #93c5fd;
-  }
-
+  .alert { background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #ffb38a; line-height: 1.6; margin: 12px 0; }
+  .alert.blue { background: rgba(59,158,255,0.08); border-color: rgba(59,158,255,0.2); color: #93c5fd; }
   .table-wrap { overflow-x: auto; margin: 12px 0; }
   table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   th { background: var(--surface2); color: var(--muted); font-weight: 600; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
   td { padding: 8px 10px; color: var(--muted); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
   td strong { color: var(--text); }
   tr:last-child td { border-bottom: none; }
-
-  /* FOOTER */
-  footer {
-    text-align: center; padding: 40px 24px;
-    font-size: 12px; color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
+  footer { text-align: center; padding: 40px 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
   footer span { color: var(--accent-ok); }
 </style>
 </head>
@@ -245,15 +112,16 @@
 
 <nav>
   <div class="nav-logo">📚 L2 LEA</div>
-  <div class="nav-tab" onclick="scrollTo('anglais')" id="tab-ang">Anglais</div>
-  <div class="nav-tab" onclick="scrollTo('management')" id="tab-mana">Management</div>
-  <div class="nav-tab" onclick="scrollTo('droit')" id="tab-droit">Droit</div>
+  <div class="nav-tab" onclick="scrollTo('anglais')">Anglais</div>
+  <div class="nav-tab" onclick="scrollTo('management')">Management</div>
+  <div class="nav-tab" onclick="scrollTo('droit')">Droit</div>
+  <div class="nav-tab" onclick="scrollTo('georusse')">Géo Russe S4</div>
 </nav>
 
 <div class="hero">
   <div class="hero-label">Rattrapages Juin 2025 · L2 LEA Lille</div>
   <h1>Toutes tes<br><span class="ang">fiches de révision</span><br>au même endroit</h1>
-  <p>Anglais Culture & Société · Management des organisations · Droit de l'entreprise. Clique sur chaque thème pour déplier la fiche.</p>
+  <p>Anglais Culture & Société · Management des organisations · Droit de l'entreprise · <span class="geo">Géographie russe S4</span>. Clique sur chaque thème pour déplier la fiche.</p>
   <div class="countdown">
     <span class="dot"></span>
     Rattrapages le 2 juin — reste peu de temps, go !
@@ -269,31 +137,21 @@
   </div>
   <div class="cards">
 
-    <!-- ANG CM1 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">01</span>
-          <div>
-            <div class="card-title-text">The Mouse that gave birth to an Elephant</div>
-            <div class="card-subtitle">L'Empire britannique — causes, territoires, chronologie</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">01</span>
+          <div><div class="card-title-text">The Mouse that gave birth to an Elephant</div>
+          <div class="card-subtitle">L'Empire britannique — causes, territoires, chronologie</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="def-box">
-          <span class="label">Idée centrale</span>
-          La Grande-Bretagne, petit pays, a construit le plus grand empire colonial de l'histoire. <strong>Pourquoi ?</strong> 5 raisons entremêlées : démographique, économique, géopolitique, religieuse, identitaire.
-        </div>
-
+        <div class="def-box"><span class="label">Idée centrale</span>La Grande-Bretagne, petit pays, a construit le plus grand empire colonial de l'histoire. <strong>Pourquoi ?</strong> 5 raisons entremêlées : démographique, économique, géopolitique, religieuse, identitaire.</div>
         <h3>5 raisons de l'expansion</h3>
         <div class="list-item"><strong>Démographique</strong> — "Safety valve" : exporter les pauvres sans-terre (suite aux enclosures) pour éviter les révoltes.</div>
         <div class="list-item"><strong>Économique</strong> — Contrôler les routes maritimes, exploiter les ressources, commerce. Esclavage central (1554-1833).</div>
         <div class="list-item"><strong>Géopolitique</strong> — Rivaliser avec l'Espagne, Portugal, France, Allemagne, Pays-Bas.</div>
         <div class="list-item"><strong>Religieux</strong> — Diffuser le protestantisme, accueillir les Puritains persécutés (Pilgrim Fathers, 1620).</div>
         <div class="list-item"><strong>Identitaire</strong> — Cimenter l'unité nationale (Angleterre, Écosse, Pays de Galles, Irlande). Jingoisme = nationalisme agressif.</div>
-
         <h3>Chronologie clé</h3>
         <div class="timeline">
           <div class="tl-item"><span class="tl-date">1607</span><span class="tl-text">Jamestown (Virginie) — 1re expansion en Amérique du Nord</span></div>
@@ -306,40 +164,27 @@
           <div class="tl-item"><span class="tl-date">1947</span><span class="tl-text">Indépendance de l'Inde → Inde + Pakistan</span></div>
           <div class="tl-item"><span class="tl-date">1997</span><span class="tl-text">Rétrocession de Hong-Kong à la Chine</span></div>
         </div>
-
         <h3>Citations à retenir</h3>
         <div class="def-box"><strong>J. R. Seeley (1883)</strong> — "We seem to have conquered and peopled half the world in a fit of absence of mind."</div>
         <div class="def-box"><strong>Edward Said (1993)</strong> — Culture and Imperialism → l'Irlande comme cas post-colonial européen.</div>
-
         <h3>Vocabulaire clé</h3>
-        <div class="tag-row">
-          <span class="tag orange">Safety valve</span><span class="tag orange">Jingoism</span><span class="tag orange">Dominion</span><span class="tag orange">Post-colonialism</span><span class="tag orange">Plantocracy</span><span class="tag orange">Special relationship</span>
-        </div>
+        <div class="tag-row"><span class="tag orange">Safety valve</span><span class="tag orange">Jingoism</span><span class="tag orange">Dominion</span><span class="tag orange">Post-colonialism</span><span class="tag orange">Plantocracy</span><span class="tag orange">Special relationship</span></div>
       </div>
     </div>
 
-    <!-- ANG CM2 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">02</span>
-          <div>
-            <div class="card-title-text">Textile, the Industrial Revolution and Empire</div>
-            <div class="card-subtitle">Coton, Manchester, Gandhi, désindustrialisation</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">02</span>
+          <div><div class="card-title-text">Textile, the Industrial Revolution and Empire</div>
+          <div class="card-subtitle">Coton, Manchester, Gandhi, désindustrialisation</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="def-box">
-          <span class="label">Idée centrale</span>
-          La révolution industrielle et l'Empire sont <strong>inséparables</strong>. Le textile en est la preuve : coton brut des colonies → usines Lancashire → produits exportés → destruction industries locales → immigration → désindustrialisation → délocalisation.
-        </div>
-
+        <div class="def-box"><span class="label">Idée centrale</span>La révolution industrielle et l'Empire sont <strong>inséparables</strong>. Le textile en est la preuve : coton brut des colonies → usines Lancashire → produits exportés → destruction industries locales → immigration → désindustrialisation → délocalisation.</div>
         <h3>Chronologie clé</h3>
         <div class="timeline">
           <div class="tl-item"><span class="tl-date">18e s.</span><span class="tl-text">Révolution industrielle. Spinning-jenny (eau). Textile = première industrie révolutionnée.</span></div>
-          <div class="tl-item"><span class="tl-date">1776</span><span class="tl-text">Adam Smith, The Wealth of Nations — préfigure la révolution industrielle</span></div>
+          <div class="tl-item"><span class="tl-date">1776</span><span class="tl-text">Adam Smith, The Wealth of Nations</span></div>
           <div class="tl-item"><span class="tl-date">1794-1806</span><span class="tl-text">Coton passe de 15,6% à 42,3% des exportations britanniques</span></div>
           <div class="tl-item"><span class="tl-date">1861-65</span><span class="tl-text">Guerre de Sécession → l'Inde tente de remplacer le coton US (échec)</span></div>
           <div class="tl-item"><span class="tl-date">1870-1930</span><span class="tl-text">Manchester = capitale mondiale du textile. Déclin dès 1920.</span></div>
@@ -348,49 +193,26 @@
           <div class="tl-item"><span class="tl-date">1980s</span><span class="tl-text">Fermeture des usines. Délocalisation au Bangladesh, Inde, Chine.</span></div>
           <div class="tl-item"><span class="tl-date">2013</span><span class="tl-text">Effondrement Rana Plaza (Bangladesh) — 1100 morts.</span></div>
         </div>
-
         <h3>Concepts clés</h3>
         <div class="list-item"><strong>Coton brut vs manufacturé</strong> — Les colonies fournissent la matière brute, la GB garde la valeur ajoutée.</div>
-        <div class="list-item"><strong>Désindustrialisation</strong> — Commence avant 1973. Le textile décline dès 1920. En Bengale, avant même l'industrialisation locale.</div>
-        <div class="list-item"><strong>Ironies du capitalisme</strong> — GB détruit textile indien → recrute des Indiens → délocalise en Inde. Rana Plaza = exploitation déplacée.</div>
+        <div class="list-item"><strong>Désindustrialisation</strong> — Commence avant 1973. Le textile décline dès 1920.</div>
         <div class="list-item"><strong>Visite Gandhi 1931</strong> — Pas venue pour sauver les ouvriers, mais pour expliquer le nationalisme indien. Le boycott = "nécessité spirituelle".</div>
-
-        <h3>Citations à retenir</h3>
-        <div class="def-box"><strong>Sven Beckert</strong> — L'empire du coton était "a fulcrum of constant global struggle between slaves and planters, merchants and statesmen, workers and factory owners."</div>
-
         <h3>Vocabulaire clé</h3>
-        <div class="tag-row">
-          <span class="tag orange">Spinning-jenny</span><span class="tag orange">A breakthrough</span><span class="tag orange">Ubiquitous</span><span class="tag orange">A fulcrum</span><span class="tag orange">Received wisdom</span><span class="tag orange">Khadi</span><span class="tag orange">Deindustrialisation</span>
-        </div>
+        <div class="tag-row"><span class="tag orange">Spinning-jenny</span><span class="tag orange">A breakthrough</span><span class="tag orange">Ubiquitous</span><span class="tag orange">A fulcrum</span><span class="tag orange">Received wisdom</span><span class="tag orange">Khadi</span><span class="tag orange">Deindustrialisation</span></div>
       </div>
     </div>
 
-    <!-- ANG CM3 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">03</span>
-          <div>
-            <div class="card-title-text">North America, the Caribbean Zone and Slavery</div>
-            <div class="card-subtitle">Esclavage, abolition, paradoxes historiques</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">03</span>
+          <div><div class="card-title-text">North America, the Caribbean Zone and Slavery</div>
+          <div class="card-subtitle">Esclavage, abolition, paradoxes historiques</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="def-box">
-          <span class="label">Idée centrale</span>
-          La GB a été <strong>à la fois bourreau et abolisseur</strong>. L'esclavage n'est pas simplement "sudiste". L'histoire est pleine de paradoxes : Locke = philosophe des Lumières ET actionnaire de la traite. 1833 : les maîtres indemnisés, pas les esclaves.
-        </div>
-
-        <h3>Chiffres clés — destination des esclaves</h3>
-        <div class="tag-row">
-          <span class="tag orange">Brésil : 45%</span>
-          <span class="tag orange">Caraïbes : 37%</span>
-          <span class="tag orange">Amérique espagnole : 11%</span>
-          <span class="tag orange">Amérique du Nord : 4%</span>
-        </div>
-
+        <div class="def-box"><span class="label">Idée centrale</span>La GB a été <strong>à la fois bourreau et abolisseur</strong>. L'esclavage n'est pas simplement "sudiste". 1833 : les maîtres indemnisés, pas les esclaves.</div>
+        <h3>Destination des esclaves</h3>
+        <div class="tag-row"><span class="tag orange">Brésil : 45%</span><span class="tag orange">Caraïbes : 37%</span><span class="tag orange">Amérique espagnole : 11%</span><span class="tag orange">Amérique du Nord : 4%</span></div>
         <h3>Chronologie</h3>
         <div class="timeline">
           <div class="tl-item"><span class="tl-date">1444</span><span class="tl-text">1res razzias organisées par le Portugal en Mauritanie</span></div>
@@ -401,29 +223,23 @@
           <div class="tl-item"><span class="tl-date">1888</span><span class="tl-text">Abolition au Brésil — dernier pays</span></div>
           <div class="tl-item"><span class="tl-date">1964</span><span class="tl-text">Malcolm X à Oxford — critique de l'Empire comme "plus grand esclavagiste"</span></div>
         </div>
-
         <h3>Paradoxes à connaître</h3>
         <div class="list-item"><strong>Locke</strong> — Philosophe des Lumières ET actionnaire de la Royal African Company.</div>
         <div class="list-item"><strong>Oglethorpe</strong> — Interdit l'esclavage non par humanisme, mais parce que ça rendait les Blancs moralement corrompus.</div>
-        <div class="list-item"><strong>Irlande</strong> — Cas post-colonial unique : Blancs sur Blancs, domination par religion (protestants > catholiques). Edward Said.</div>
+        <div class="list-item"><strong>Irlande</strong> — Cas post-colonial unique : Blancs sur Blancs, domination par religion. Edward Said.</div>
         <div class="list-item"><strong>Le Nord américain</strong> — A abandonné l'esclavage pour des raisons économiques, pas humanitaires.</div>
-
         <h3>Personnages clés</h3>
         <div class="two-col">
           <div class="mini-card"><div class="mc-title">Olaudah Equiano</div><p>Esclave capturé au Nigeria, rachète sa liberté, devient militant abolitionniste en GB.</p></div>
           <div class="mini-card"><div class="mc-title">Frederick Douglass</div><p>Esclave au Maryland, s'échappe, devient grand orateur anti-esclavagiste aux USA.</p></div>
-          <div class="mini-card"><div class="mc-title">Toussaint L'Ouverture</div><p>Meilleur exemple de révolte d'esclaves — Haïti. La résistance est venue des esclaves eux-mêmes.</p></div>
+          <div class="mini-card"><div class="mc-title">Toussaint L'Ouverture</div><p>Meilleur exemple de révolte d'esclaves — Haïti.</p></div>
           <div class="mini-card"><div class="mc-title">Malcolm X (1964)</div><p>Oxford : dénonce que les maîtres ont été indemnisés, pas les esclaves.</p></div>
         </div>
-
         <h3>Vocabulaire clé</h3>
-        <div class="tag-row">
-          <span class="tag orange">Chattel</span><span class="tag orange">Middle Passage</span><span class="tag orange">An auction</span><span class="tag orange">Plantocracy</span><span class="tag orange">To entrench</span><span class="tag orange">Devoid of</span>
-        </div>
+        <div class="tag-row"><span class="tag orange">Chattel</span><span class="tag orange">Middle Passage</span><span class="tag orange">An auction</span><span class="tag orange">Plantocracy</span><span class="tag orange">To entrench</span><span class="tag orange">Devoid of</span></div>
       </div>
     </div>
-
-  </div><!-- /anglais cards -->
+  </div>
 
   <!-- ===== MANAGEMENT ===== -->
   <div id="management" class="section-header">
@@ -432,41 +248,26 @@
   </div>
   <div class="cards">
 
-    <!-- MANA CM1 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">01</span>
-          <div>
-            <div class="card-title-text">Qu'est-ce qu'une organisation ? Le management ?</div>
-            <div class="card-subtitle">Définitions, 3 types d'organisations, niveaux de management</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">01</span>
+          <div><div class="card-title-text">Qu'est-ce qu'une organisation ? Le management ?</div>
+          <div class="card-subtitle">Définitions, 3 types d'organisations, niveaux de management</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="def-box">
-          <span class="label blue">Robbins — Définition organisation</span>
-          "Un ensemble de moyens structurés constituant une unité de coordination ayant des frontières identifiables, fonctionnant en continu en vue d'atteindre un ensemble d'objectifs partagés par les membres participants."
-        </div>
-        <div class="def-box">
-          <span class="label blue">Thiétart (1996) — Définition management</span>
-          "L'art ou la manière de conduire une organisation, de la diriger, de planifier son développement, de la contrôler, et ce dans tous les domaines d'activité de l'organisation."
-        </div>
-
+        <div class="def-box"><span class="label blue">Robbins — Définition organisation</span>"Un ensemble de moyens structurés constituant une unité de coordination ayant des frontières identifiables, fonctionnant en continu en vue d'atteindre un ensemble d'objectifs partagés par les membres participants."</div>
+        <div class="def-box"><span class="label blue">Thiétart (1996) — Définition management</span>"L'art ou la manière de conduire une organisation, de la diriger, de planifier son développement, de la contrôler, et ce dans tous les domaines d'activité de l'organisation."</div>
         <h3>Pourquoi les organisations existent ?</h3>
         <div class="list-item"><strong>Crozier</strong> — "L'organisation est une réponse au problème de l'action collective" → division et coordination</div>
-        <div class="list-item"><strong>Dobb / Alchian & Demetz</strong> — Mettre en commun les outils de production</div>
-        <div class="list-item"><strong>Knight</strong> — Pour prendre en charge le risque</div>
         <div class="list-item"><strong>Coase</strong> (Nobel 1993) — Alternative au marché, réduit les coûts de transaction</div>
-
+        <div class="list-item"><strong>Knight</strong> — Pour prendre en charge le risque</div>
         <h3>3 types d'organisations</h3>
         <div class="three-col">
           <div class="mini-card"><div class="mc-title" style="color:#3b9eff">Entreprise</div><p>Privée, finalité lucrative. Crée de la valeur ajoutée.</p></div>
           <div class="mini-card"><div class="mc-title" style="color:#22c55e">OSC</div><p>Privée, non lucrative. Service non marchand. Asso loi 1901, ONG, syndicats.</p></div>
           <div class="mini-card"><div class="mc-title" style="color:#a855f7">Organisation publique</div><p>Finalité service public. Continuité + Égalité + Adaptabilité.</p></div>
         </div>
-
         <h3>Taille des entreprises</h3>
         <div class="table-wrap"><table>
           <tr><th>Type</th><th>Salariés</th><th>CA annuel</th></tr>
@@ -475,97 +276,58 @@
           <tr><td><strong>ETI</strong></td><td>&lt; 5 000</td><td>&lt; 1 500 M€</td></tr>
           <tr><td><strong>Grande entreprise</strong></td><td>≥ 5 000</td><td>&gt; 1,5 Mds€</td></tr>
         </table></div>
-
         <h3>Niveaux de management</h3>
         <div class="list-item"><strong>Stratégique</strong> — Long terme, décisions irréversibles, moyens importants.</div>
         <div class="list-item"><strong>Opérationnel</strong> — Court/moyen terme, mise en œuvre des décisions stratégiques.</div>
-
-        <div class="alert blue">Conclusion clé : Il n'y a pas une seule "bonne manière" de gérer une organisation — tout dépend des facteurs de contingence (type, taille, âge, environnement, culture, jeux d'acteurs).</div>
+        <div class="alert blue">Conclusion clé : Il n'y a pas une seule "bonne manière" de gérer — tout dépend des facteurs de contingence (type, taille, âge, environnement, culture, jeux d'acteurs).</div>
       </div>
     </div>
 
-    <!-- MANA CM2 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">02</span>
-          <div>
-            <div class="card-title-text">Finalités, RSE et responsabilités</div>
-            <div class="card-subtitle">Parties prenantes, Loi PACTE, modèles durables</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">02</span>
+          <div><div class="card-title-text">Finalités, RSE et responsabilités</div>
+          <div class="card-subtitle">Parties prenantes, Loi PACTE, modèles durables</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="def-box">
-          <span class="label blue">RSE (Commission Européenne, 2011)</span>
-          "Responsabilité des entreprises vis-à-vis des effets qu'elle exerce sur la société." = déclinaison du Développement Durable au niveau de l'entreprise : <strong>3P = People, Planet, Profit</strong>
-        </div>
-        <div class="def-box">
-          <span class="label blue">Développement durable (Brundtland, 1987)</span>
-          "Permet de répondre aux besoins des générations actuelles sans compromettre la possibilité de répondre à ceux des générations futures."
-        </div>
-        <div class="def-box">
-          <span class="label blue">Partie prenante (Freeman)</span>
-          "Tout groupe ou individu pouvant affecter ou être affecté par la mise en œuvre des objectifs d'une organisation."
-        </div>
-
+        <div class="def-box"><span class="label blue">RSE (Commission Européenne, 2011)</span>"Responsabilité des entreprises vis-à-vis des effets qu'elle exerce sur la société." = déclinaison du Développement Durable : <strong>3P = People, Planet, Profit</strong></div>
+        <div class="def-box"><span class="label blue">Développement durable (Brundtland, 1987)</span>"Permet de répondre aux besoins des générations actuelles sans compromettre la possibilité de répondre à ceux des générations futures."</div>
+        <div class="def-box"><span class="label blue">Partie prenante (Freeman)</span>"Tout groupe ou individu pouvant affecter ou être affecté par la mise en œuvre des objectifs d'une organisation."</div>
         <h3>PP primaires vs secondaires (Clarkson)</h3>
         <div class="two-col">
           <div class="mini-card"><div class="mc-title">Primaires</div><p>Lien direct productif/financier. Ex : salariés, actionnaires, clients, fournisseurs, banques.</p></div>
           <div class="mini-card"><div class="mc-title">Secondaires</div><p>Sans transaction directe. Ex : opinion publique, État, ONG, riverains.</p></div>
         </div>
-
-        <h3>Vision instrumentale de la RSE</h3>
-        <div class="list-item"><strong>État</strong> — Légitimité → obtenir des permis plus facilement</div>
-        <div class="list-item"><strong>Concurrents</strong> — Standards stricts → élever les coûts pour les concurrents</div>
-        <div class="list-item"><strong>Salariés</strong> — Attirer les talents, augmenter l'implication</div>
-        <div class="list-item"><strong>Clients</strong> — Instrument marketing → augmenter les ventes</div>
-        <div class="list-item"><strong>Actionnaires</strong> — Attirer les fonds ISR</div>
-        <div class="alert">⚠️ 54,7% des décisions RSE ne sont jamais réellement prises en compte. (Étude Ifa/Orse/PWC, 2022)</div>
-
         <h3>Cadre légal</h3>
         <div class="list-item"><strong>Loi PACTE (2019)</strong> — L'entreprise doit être "gérée dans son intérêt social, en prenant en considération les enjeux sociaux et environnementaux." → crée la société à mission.</div>
         <div class="list-item"><strong>CSRD</strong> — Rapport de durabilité obligatoire pour >250 salariés ou 50M€ CA</div>
         <div class="list-item"><strong>CSDDD</strong> — Respect droits humains sur toute la chaîne d'approvisionnement (>1000 sal, CA >450M€)</div>
-
+        <div class="alert">⚠️ 54,7% des décisions RSE ne sont jamais réellement prises en compte. (Ifa/Orse/PWC, 2022)</div>
         <h3>3 modèles durables</h3>
         <div class="three-col">
-          <div class="mini-card"><div class="mc-title">Économie circulaire</div><p>Zéro déchet, ressources réutilisées sur tout le cycle de vie du produit.</p></div>
+          <div class="mini-card"><div class="mc-title">Économie circulaire</div><p>Zéro déchet, ressources réutilisées sur tout le cycle de vie.</p></div>
           <div class="mini-card"><div class="mc-title">Économie de la fonctionnalité</div><p>Vendre l'usage, pas le bien. Rifkin : "l'usage prévaut sur la propriété."</p></div>
-          <div class="mini-card"><div class="mc-title">Économie collaborative</div><p>Partage entre particuliers via plateforme numérique. Ex : Blablacar, Airbnb.</p></div>
+          <div class="mini-card"><div class="mc-title">Économie collaborative</div><p>Partage entre particuliers via plateforme. Ex : Blablacar, Airbnb.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- MANA CM3 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">03</span>
-          <div>
-            <div class="card-title-text">Stratégie, gouvernance et pouvoir</div>
-            <div class="card-subtitle">LCAG, SWOT, Porter, Fayol, Crozier, SCOP</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">03</span>
+          <div><div class="card-title-text">Stratégie, gouvernance et pouvoir</div>
+          <div class="card-subtitle">LCAG, SWOT, Porter, Fayol, Crozier, SCOP</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
         <h3>Modèle LCAG — 5 étapes</h3>
-        <div class="tag-row">
-          <span class="tag blue">1. Finalité</span><span class="tag" style="color:#666">→</span>
-          <span class="tag blue">2. Diagnostic SWOT</span><span class="tag" style="color:#666">→</span>
-          <span class="tag blue">3. Conception stratégie</span><span class="tag" style="color:#666">→</span>
-          <span class="tag blue">4. Mise en œuvre</span><span class="tag" style="color:#666">→</span>
-          <span class="tag blue">5. Contrôle & rétroaction</span>
-        </div>
-
+        <div class="tag-row"><span class="tag blue">1. Finalité</span><span class="tag blue">2. Diagnostic SWOT</span><span class="tag blue">3. Conception stratégie</span><span class="tag blue">4. Mise en œuvre</span><span class="tag blue">5. Contrôle & rétroaction</span></div>
         <h3>SWOT</h3>
         <div class="two-col">
           <div class="mini-card"><div class="mc-title" style="color:#22c55e">Forces / Opportunités (+)</div><p>Forces = interne. Opportunités = externe.</p></div>
           <div class="mini-card"><div class="mc-title" style="color:#ef4444">Faiblesses / Menaces (−)</div><p>Faiblesses = interne. Menaces = externe (PESTEL).</p></div>
         </div>
-
         <h3>4 stratégies globales</h3>
         <div class="table-wrap"><table>
           <tr><th>Stratégie</th><th>Principe</th><th>Avantage</th><th>Limite</th></tr>
@@ -574,41 +336,31 @@
           <tr><td><strong>Diversification</strong></td><td>Nouveaux DAS</td><td>Diversification des risques</td><td>Image confuse, complexité</td></tr>
           <tr><td><strong>Internationalisation</strong></td><td>Même activité, autres marchés</td><td>Nouveaux marchés</td><td>Risques culturels, politiques</td></tr>
         </table></div>
-
         <h3>3 stratégies de domaine (Porter)</h3>
         <div class="three-col">
           <div class="mini-card"><div class="mc-title">Domination par les coûts</div><p>Prix plus bas. Captation de parts de marché.</p></div>
           <div class="mini-card"><div class="mc-title">Différenciation</div><p>Produit unique. Fidélisation, marges élevées.</p></div>
           <div class="mini-card"><div class="mc-title">Concentration</div><p>Niche de marché. Évite la concurrence frontale.</p></div>
         </div>
-
         <h3>Qui a le pouvoir ?</h3>
         <div class="list-item"><strong>Fayol (1916)</strong> — Les dirigeants. 5 fonctions : Prévoir, Organiser, Commander, Coordonner, Contrôler.</div>
-        <div class="list-item"><strong>Moreno (1933)</strong> — Sociogramme : le pouvoir réel suit les relations affectives.</div>
-        <div class="list-item"><strong>Crozier & Friedberg (1977)</strong> — Tout acteur maîtrisant une zone d'incertitude a du pouvoir. Sources : compétence rare, info, lien avec PP clé.</div>
-
+        <div class="list-item"><strong>Crozier & Friedberg (1977)</strong> — Tout acteur maîtrisant une zone d'incertitude a du pouvoir.</div>
         <h3>Gouvernance — 3 pouvoirs (Gomez, 2021)</h3>
         <div class="three-col">
           <div class="mini-card"><div class="mc-title" style="color:#f59e0b">Souverain</div><p>Actionnaires (AG). Votent les comptes, désignent les administrateurs.</p></div>
           <div class="mini-card"><div class="mc-title" style="color:#22c55e">Exécutif</div><p>Dirigeants. Définissent et mettent en œuvre la stratégie.</p></div>
           <div class="mini-card"><div class="mc-title" style="color:#3b9eff">Surveillance</div><p>CA ou Conseil de surveillance. Nomment le dirigeant, contrôlent.</p></div>
         </div>
-
         <div class="alert blue">Coopératives (SCOP/SCIC) : principe <strong>1 personne = 1 voix</strong>, quelle que soit la part du capital détenu.</div>
       </div>
     </div>
 
-    <!-- MANA CM4 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">04</span>
-          <div>
-            <div class="card-title-text">Relation aux travailleur.ses</div>
-            <div class="card-subtitle">Taylor → Maslow → Herzberg — 4 époques, tous les auteurs</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">04</span>
+          <div><div class="card-title-text">Relation aux travailleur.ses</div>
+          <div class="card-subtitle">Taylor → Maslow → Herzberg — 4 époques, tous les auteurs</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
         <h3>4 grandes étapes</h3>
@@ -619,48 +371,34 @@
           <tr><td><strong>1960–1970</strong></td><td>Adapter la structure</td><td>Woodward, Chandler, Burns & Stalker, Mintzberg</td></tr>
           <tr><td><strong>1970–</strong></td><td>Mobiliser et faire participer</td><td>Herzberg, Sainsaulieu, Hofstede</td></tr>
         </table></div>
-
         <h3>Auteurs clés</h3>
-        <div class="list-item"><strong>Taylor</strong> — OST. Division verticale (qui décide/qui exécute) et horizontale (tâches répétitives). "L'efficacité individuelle tombe au niveau du plus mauvais de l'équipe."</div>
+        <div class="list-item"><strong>Taylor</strong> — OST. Division verticale (qui décide/qui exécute) et horizontale (tâches répétitives).</div>
         <div class="list-item"><strong>Fayol (1916)</strong> — 6 fonctions de l'entreprise. 5 fonctions du dirigeant : Prévoir, Organiser, Commander, Coordonner, Contrôler.</div>
-        <div class="list-item"><strong>Weber</strong> — Bureaucratie = idéal-type de l'autorité rationnelle-légale. Les règles = stabilité.</div>
+        <div class="list-item"><strong>Weber</strong> — Bureaucratie = idéal-type de l'autorité rationnelle-légale.</div>
         <div class="list-item"><strong>Mayo (1924-29)</strong> — Expériences Hawthorne. Être valorisé suffit à motiver (effet Hawthorne).</div>
         <div class="list-item"><strong>Maslow (1943)</strong> — Pyramide des 5 besoins : physiologiques → sécurité → appartenance → estime → accomplissement.</div>
-        <div class="list-item"><strong>Lewin</strong> — Dynamique de groupe. Le débat collectif favorise le passage à l'acte.</div>
-        <div class="list-item"><strong>Lippit & White</strong> — 3 styles : autoritaire, démocratique, permissif.</div>
         <div class="list-item"><strong>McGregor</strong> — Théorie X (paresseux, contrôler) vs Théorie Y (créatif, responsabiliser).</div>
         <div class="list-item"><strong>Herzberg (1971)</strong> — Bi-factorielle. Facteurs d'hygiène (absence = insatisfaction). Facteurs de motivation (présence = satisfaction). Augmenter le salaire seul ne suffit pas.</div>
-        <div class="list-item"><strong>Sainsaulieu</strong> — Implication = partage des valeurs + intérêt personnel.</div>
         <div class="list-item"><strong>Hofstede</strong> — 5 dimensions culturelles : distance hiérarchique, contrôle incertitude, individualisme, masculinité/féminité, relation au temps.</div>
       </div>
     </div>
 
-    <!-- MANA CM5 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">05</span>
-          <div>
-            <div class="card-title-text">Comment organiser le travail ?</div>
-            <div class="card-subtitle">Structures, Mintzberg, Chandler, Burns & Stalker, chaîne de valeur</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">05</span>
+          <div><div class="card-title-text">Comment organiser le travail ?</div>
+          <div class="card-subtitle">Structures, Mintzberg, Chandler, Burns & Stalker, chaîne de valeur</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="def-box">
-          <span class="label blue">Structure (Mintzberg)</span>
-          "La somme totale des moyens employés pour diviser le travail entre tâches distinctes et pour ensuite assurer la coordination entre ces tâches."
-        </div>
-
-        <h3>4 formes de structure (organigramme)</h3>
+        <div class="def-box"><span class="label blue">Structure (Mintzberg)</span>"La somme totale des moyens employés pour diviser le travail entre tâches distinctes et pour ensuite assurer la coordination entre ces tâches."</div>
+        <h3>4 formes de structure</h3>
         <div class="two-col">
           <div class="mini-card"><div class="mc-title">Entrepreneuriale</div><p>Leader central + quelques collaborateurs. Start-up, TPE.</p></div>
           <div class="mini-card"><div class="mc-title">Fonctionnelle</div><p>Par grandes fonctions (production, commercial…). PME-ETI.</p></div>
           <div class="mini-card"><div class="mc-title">Divisionnelle</div><p>Divisions autonomes par produit ou zone. Grandes entreprises diversifiées.</p></div>
           <div class="mini-card"><div class="mc-title">Matricielle/projet</div><p>Double rattachement fonctionnel + projet. Flexible mais complexe.</p></div>
         </div>
-
         <h3>6 configurations Mintzberg</h3>
         <div class="table-wrap"><table>
           <tr><th>Configuration</th><th>Caractéristique</th><th>Exemple</th></tr>
@@ -671,36 +409,28 @@
           <tr><td><strong>Adhocratie</strong></td><td>Très flexible, innovation permanente</td><td>Agence créative, R&D</td></tr>
           <tr><td><strong>Organisation missionnaire</strong></td><td>Culture/idéologie dominante</td><td>ONG, coopérative engagée</td></tr>
         </table></div>
-
         <h3>Déterminants de la structure</h3>
         <div class="list-item"><strong>Chandler</strong> — "La stratégie influence la structure." Diversification → structure divisionnelle.</div>
-        <div class="list-item"><strong>Woodward</strong> — La technologie influence la structure. Production de masse → forte formalisation. Production unitaire → souple.</div>
+        <div class="list-item"><strong>Woodward</strong> — La technologie influence la structure.</div>
+        <div class="list-item"><strong>Burns & Stalker</strong> — Environnement stable → mécaniste. Instable → organique (flexible).</div>
         <div class="list-item"><strong>Coase</strong> — Internaliser si coûts transaction > coûts bureaucratiques. Externaliser si inverse.</div>
-        <div class="list-item"><strong>Burns & Stalker</strong> — Environnement stable → structure mécaniste. Environnement instable → structure organique (flexible).</div>
-
         <h3>Chaîne de valeur (Porter)</h3>
         <div class="list-item"><strong>Activités principales</strong> — Logistique interne → Production → Logistique externe → Commercialisation → Services.</div>
-        <div class="list-item"><strong>Activités de soutien</strong> — Infrastructure + GRH + R&D technologique + Approvisionnements.</div>
+        <div class="list-item"><strong>Activités de soutien</strong> — Infrastructure + GRH + R&D + Approvisionnements.</div>
       </div>
     </div>
 
-    <!-- MANA CM6 -->
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">06</span>
-          <div>
-            <div class="card-title-text">Comment financer l'organisation ?</div>
-            <div class="card-subtitle">Besoins, banques, actionnaires, théorie de l'agence</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">06</span>
+          <div><div class="card-title-text">Comment financer l'organisation ?</div>
+          <div class="card-subtitle">Besoins, banques, actionnaires, théorie de l'agence</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
         <h3>2 sources du besoin de financement</h3>
-        <div class="list-item"><strong>Cycle d'exploitation</strong> — Décalage entre dépenses et recettes. Augmente si stocks↑ + délais clients↑ + délais fournisseurs↓.</div>
-        <div class="list-item"><strong>Investissement</strong> — Actif durable (>1 an). 3 objectifs : capacité (produire plus), productivité (produire mieux), modernisation.</div>
-
+        <div class="list-item"><strong>Cycle d'exploitation</strong> — Décalage entre dépenses et recettes.</div>
+        <div class="list-item"><strong>Investissement</strong> — Actif durable (>1 an). 3 objectifs : capacité, productivité, modernisation.</div>
         <h3>Modes de financement</h3>
         <div class="table-wrap"><table>
           <tr><th>Mode</th><th>Avantages</th><th>Inconvénients</th></tr>
@@ -711,27 +441,14 @@
           <tr><td><strong>Capital investissement</strong></td><td>Finance la création/innovation</td><td>Rentabilité court terme 20-25% exigée</td></tr>
           <tr><td><strong>Crowdfunding</strong></td><td>Contourne les banques</td><td>Coût élevé, seuls projets attractifs</td></tr>
         </table></div>
-
-        <h3>Types d'actionnaires</h3>
-        <div class="table-wrap"><table>
-          <tr><th>Type</th><th>Poids décisions</th><th>Stabilité</th></tr>
-          <tr><td><strong>Grand public</strong></td><td>Infime</td><td>Non</td></tr>
-          <tr><td><strong>Famille</strong> (ex: Bonduelle)</td><td>Fort</td><td>Très stable</td></tr>
-          <tr><td><strong>Salariés</strong></td><td>Faible</td><td>Stable</td></tr>
-          <tr><td><strong>Institutionnels</strong></td><td>Variable</td><td>Instable</td></tr>
-          <tr><td><strong>Entreprises</strong></td><td>Très important</td><td>Stable</td></tr>
-          <tr><td><strong>État</strong></td><td>Très important</td><td>Très stable</td></tr>
-        </table></div>
-
-        <h3>2 risques de l'actionnariat</h3>
-        <div class="list-item"><strong>Théorie de l'agence (Jensen & Meckling)</strong> — Actionnaires (principal) délèguent aux dirigeants (agent). Intérêts divergents → dirigeants peuvent agir pour eux-mêmes. Ex : Bernard Charlès, PDG Dassault Systèmes → 46,8M€ en 2023.</div>
+        <h3>Risques de l'actionnariat</h3>
+        <div class="list-item"><strong>Théorie de l'agence (Jensen & Meckling)</strong> — Actionnaires (principal) délèguent aux dirigeants (agent). Intérêts divergents → dirigeants peuvent agir pour eux-mêmes.</div>
         <div class="list-item"><strong>Rentabilité court terme</strong> — Fonds d'investissement exigent 20-25% de retour sur 3-7 ans. Incompatible avec vision industrielle longue.</div>
-
         <div class="alert blue">Les émissions d'actions financent en réalité très peu l'investissement productif réel. (Auvray, Dallery et Rigot, 2016)</div>
       </div>
     </div>
 
-  </div><!-- /management cards -->
+  </div>
 
   <!-- ===== DROIT ===== -->
   <div id="droit" class="section-header">
@@ -741,34 +458,358 @@
   <div class="cards">
     <div class="card" onclick="toggle(this)">
       <div class="card-head">
-        <div class="card-left">
-          <span class="card-num">01</span>
-          <div>
-            <div class="card-title-text">Fiches droit à venir</div>
-            <div class="card-subtitle">Envoie tes cours de droit pour compléter cette section</div>
-          </div>
-        </div>
-        <span class="chevron">▼</span>
+        <div class="card-left"><span class="card-num">01</span>
+          <div><div class="card-title-text">Fiches droit à venir</div>
+          <div class="card-subtitle">Envoie tes cours de droit pour compléter cette section</div></div>
+        </div><span class="chevron">▼</span>
       </div>
       <div class="card-body">
-        <div class="alert">📂 Cette section sera complétée dès que tu envoies tes cours de droit de l'entreprise. Envoie-les dans le chat et les fiches seront ajoutées ici.</div>
+        <div class="alert">📂 Cette section sera complétée dès que tu envoies tes cours de droit de l'entreprise.</div>
       </div>
     </div>
   </div>
 
+  <!-- ===== GEO RUSSE S4 ===== -->
+  <div id="georusse" class="section-header">
+    <span class="section-pill pill-geo">S4 — Géo Russe</span>
+    <span class="section-title">Géographie de la Russie</span>
+  </div>
+  <div class="cards">
+
+    <!-- §1 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">01</span>
+          <div><div class="card-title-text">Spécificité des territoires russes</div>
+          <div class="card-subtitle">8 districts fédéraux · classements · rôles</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Idée centrale</span>Depuis <strong>2000</strong>, la Russie est organisée en <strong>8 districts fédéraux (ФО)</strong> qui remplacent les anciens districts économiques soviétiques. Chaque district est dirigé par un représentant plénipotentiaire nommé par le président.</div>
+        <h3>Les 8 districts fédéraux</h3>
+        <div class="table-wrap"><table>
+          <tr><th>№</th><th>District</th><th>Centre</th></tr>
+          <tr><td>1</td><td><strong>Central</strong></td><td>Moscou</td></tr>
+          <tr><td>2</td><td><strong>Nord-Ouest</strong></td><td>Saint-Pétersbourg</td></tr>
+          <tr><td>3</td><td><strong>Volga</strong></td><td>Nijni Novgorod</td></tr>
+          <tr><td>4</td><td><strong>Sud</strong></td><td>Rostov-sur-le-Don</td></tr>
+          <tr><td>5</td><td><strong>Oural</strong></td><td>Ekaterinbourg</td></tr>
+          <tr><td>6</td><td><strong>Sibérie</strong></td><td>Novossibirsk</td></tr>
+          <tr><td>7</td><td><strong>Extrême-Orient</strong></td><td>Vladivostok</td></tr>
+          <tr><td>8</td><td><strong>Caucase du Nord</strong></td><td>Piatigorsk</td></tr>
+        </table></div>
+        <h3>Classements clés (du + grand au + petit)</h3>
+        <div class="list-item"><strong>Superficie</strong> — Extrême-Orient (6 953 000 km²) → Sibérie → Oural → Nord-Ouest → Volga → Central → Sud → Caucase du Nord</div>
+        <div class="list-item"><strong>Population (2024)</strong> — Central (40,3M) → Volga (28,4M) → Sibérie (16,5M) → Sud (16,6M) → Nord-Ouest (13,9M) → Oural (12,3M) → Caucase du Nord (10,37M) → Extrême-Orient (7,9M)</div>
+        <div class="list-item"><strong>PIB (VRP 2023)</strong> — Central → Volga → Oural → Nord-Ouest → Sibérie → Sud → Extrême-Orient → Caucase du Nord</div>
+        <div class="list-item"><strong>Chômage le plus élevé</strong> — Caucase du Nord (8,5%) → Sibérie → Sud → Oural → Extrême-Orient → Volga → Nord-Ouest → Central (1% à Moscou)</div>
+        <h3>Rôle des districts</h3>
+        <div class="list-item">Renforcer la <strong>verticalité du pouvoir présidentiel</strong></div>
+        <div class="list-item">Prévenir l'<strong>éclatement de la Russie</strong></div>
+        <div class="list-item">Limiter la <strong>souveraineté excessive</strong> des sujets fédéraux</div>
+        <div class="list-item">Coordonner les politiques socio-économiques régionales</div>
+      </div>
+    </div>
+
+    <!-- §2 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">02</span>
+          <div><div class="card-title-text">District Fédéral Central (ЦФО)</div>
+          <div class="card-subtitle">18 sujets · Moscou · 40,3 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>Cœur historique, politique, économique et culturel de Russie. Pauvre en ressources naturelles mais <strong>1er en tout le reste</strong> : PIB, population, finance, industrie.</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>40,3 M hab.</strong> (2024) — le plus peuplé de Russie</div>
+        <div class="list-item"><strong>52%</strong> vivent à Moscou (13,15M) + région moscovite (7,7M)</div>
+        <div class="list-item">Urbanisation : <strong>82,2%</strong> | Densité : <strong>60,1 hab/km²</strong> (7× la moyenne nationale)</div>
+        <div class="list-item">Chômage très bas à Moscou : <strong>1,0%</strong> (chômage structurel uniquement)</div>
+        <div class="list-item">Beaucoup de migrants CIS (Ukraine, Arménie, Kazakhstan…) souvent illégaux</div>
+        <h3>Économie — chiffres clés</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">35,1% PIB national</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">45% impôts fédéraux</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">80% capitaux bancaires</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">50% recherche scientifique</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">54,7% exports RU</span>
+        </div>
+        <div class="list-item"><strong>Industrie</strong> — Machines diversifiées, chimie, textile (78% tissus RU), ciment, agroalimentaire. Avions, locomotives, tramways, tracteurs, armement</div>
+        <div class="list-item"><strong>Agriculture</strong> — 1er sucre (58%), pommes de terre (30%), lin (50%), phosphates (25%)</div>
+        <div class="list-item"><strong>Finance</strong> — Moscou = QG de Gazprom, Lukoil, Rosneft + toutes les grandes banques. 80% du capital bancaire</div>
+        <div class="list-item"><strong>Tourisme</strong> — Route "Anneau d'Or". 3 aéroports : Cheremetievo, Vnukovo, Domodedovo</div>
+        <div class="list-item"><strong>Énergie</strong> — 20,7% électricité russe (TES gaz sibérien, 4 centrales nucléaires, GES sur Volga) mais déficitaire</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : rivières modérément à fortement polluées — entreprises moscovites = 1/10 des eaux usées de Russie. Exploitation à ciel ouvert de Koursk = gros impact agricole.</div>
+      </div>
+    </div>
+
+    <!-- §3 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">03</span>
+          <div><div class="card-title-text">District Fédéral du Nord-Ouest (СЗФО)</div>
+          <div class="card-subtitle">11 sujets · Saint-Pétersbourg · 13,9 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>Situé au nord et nord-ouest européen de Russie, frontalier avec pays baltes et scandinaves. SPb = "2e capitale". Riche en ressources naturelles et nœud portuaire stratégique. Kaliningrad = enclave russe entre Pologne et Lituanie.</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>13,9 M hab.</strong> (2024) | Urbanisation : <strong>85,1%</strong> (>90% à Mourmansk)</div>
+        <div class="list-item">SPb : <strong>37,5%</strong> de la population du district. Vieille structure démographique (25% retraités à SPb)</div>
+        <div class="list-item">Situation démographique défavorable : Pskov et Novgorod</div>
+        <div class="list-item">Peuples finno-ougriens (Carèles, Komis), peuples du Grand Nord</div>
+        <h3>Ressources naturelles</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">72% apatites russes</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">77% titane</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">45% bauxites</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">60% cellulose</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">Ambre (+ grandes réserves mondiales)</span>
+        </div>
+        <div class="list-item">40% des réserves énergétiques de la partie européenne russe. Nickel, charbon (Petchora), or, diamants</div>
+        <h3>Économie</h3>
+        <div class="list-item"><strong>Industrie</strong> — Fuel (neft, gaz, charbon), métallurgie noire et non-ferreuse, machines, bois, chimie, pêche. Grands chantiers navals à SPb : brise-glaces atomiques, pétroliers, tankers</div>
+        <div class="list-item"><strong>Agriculture</strong> — Modeste : lin, élevage laitier, rennes (20% cheptel russe), pêche baltique</div>
+        <div class="list-item"><strong>Transports</strong> — Nœud ferroviaire SPb (2e après Moscou). Ports : SPb, Kaliningrad, Vyborg. Terminal pétrolier de Primorsk (2001)</div>
+        <div class="list-item"><strong>Nord Stream</strong> — Gazoduc sous-marin (1 200 km) vers l'Allemagne — <strong>hors service depuis sabotage sept. 2022</strong></div>
+        <div class="list-item"><strong>Tourisme</strong> — Ski (Khibiny), pèlerinage (Valaam, Solovetsky), Père Noël russe à Veliki Oustioug</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : 20% des rejets polluants atmosphériques russes. Problèmes radioactivité (Nouvelle-Zemble). Usines Tcherepovets et Novgorod = grands pollueurs.</div>
+      </div>
+    </div>
+
+    <!-- §4 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">04</span>
+          <div><div class="card-title-text">District Fédéral de la Volga (ПФО)</div>
+          <div class="card-subtitle">14 sujets · Nijni Novgorod · 28,4 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>Au centre de la Russie, le long de la Volga et de la Kama. <strong>20% de la population russe</strong>. 1er pour les voitures, la chimie et la potasse. Très multinational (~140 nationalités).</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>28,4 M hab.</strong> (2024) — 20% de la Russie</div>
+        <div class="list-item">4 villes millionnaires : <strong>Nijni Novgorod, Samara, Kazan, Perm</strong></div>
+        <div class="list-item">~140 nationalités : Russes 65%, ~20% musulmans (Tatars, Bachkirs, Tchouvaches)</div>
+        <div class="list-item">Urbanisation : <strong>72,4%</strong> (sous la moyenne nationale)</div>
+        <h3>Ressources naturelles</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">Pétrole (Tatarstan, Bachkortostan)</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">Gaz (Orenbourg)</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">1er titane & magnésium (Perm)</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">86% sels de potassium</span>
+        </div>
+        <h3>Économie — chiffres clés</h3>
+        <div class="list-item"><strong>Voitures</strong> — <strong>89% voitures légères</strong> russes : AvtoVAZ (Togliatti), KamAZ (Naberejnye Tchelny), GAZ (Nijni Novgorod)</div>
+        <div class="list-item"><strong>Chimie</strong> — 45% résines synthétiques, 43% pneus, 37% plastiques, 86% sels de potassium (Solikamsk, Berezniki)</div>
+        <div class="list-item"><strong>Machines-outils</strong> — 54% machines à couper les métaux. Machines agricoles, tracteurs</div>
+        <div class="list-item"><strong>Aérospatiale</strong> — 29% production nationale (Kazan, Oulianovsk, Samara). Moteurs d'avion à Perm et Oufa</div>
+        <div class="list-item"><strong>Pétrole</strong> — 15% production russe. Raffineries à Nijni Novgorod, Oufa, Saratov, Perm, Samara</div>
+        <div class="list-item"><strong>Agriculture</strong> — 2e rang national : céréales, tournesol, lin. Pipeline <strong>"Droujba"</strong> traverse le district</div>
+        <div class="list-item"><strong>Transport</strong> — Axe fluvial Volga = artère principale. Port de Nijni Novgorod = plus grand port fluvial RU</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : situation très défavorable sur la Volga. La cascade de barrages a détruit la capacité d'auto-épuration du fleuve. Stocks d'armes chimiques dans plusieurs régions.</div>
+      </div>
+    </div>
+
+    <!-- §5 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">05</span>
+          <div><div class="card-title-text">District Fédéral de l'Oural (УФО)</div>
+          <div class="card-subtitle">6 sujets · Ekaterinbourg · 12,3 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>Corridor entre Europe et Asie, loin des ports maritimes. <strong>Poumon énergétique de la Russie</strong> : 55% du pétrole et 77% du gaz russes. Mais profits partent à Moscou (Gazprom, Lukoil, Rosneft).</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>12,3 M hab.</strong> (8,3% de la Russie), très inégalement répartis</div>
+        <div class="list-item">2 villes millionnaires : <strong>Ekaterinbourg et Tcheliabinsk</strong></div>
+        <div class="list-item">Population jeune grâce aux migrations vers zones pétrolières du Nord</div>
+        <div class="list-item">Problème démographique à Kourgan (exode, faible natalité, forte mortalité)</div>
+        <div class="list-item">Russes 80%, Tatars, Bachkirs, Kazakhs. 5% peuples autochtones</div>
+        <h3>Ressources & Économie</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">55% pétrole russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">77% gaz russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">17% électricité russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">2e commerce extérieur RU</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">20% émissions polluantes</span>
+        </div>
+        <div class="list-item"><strong>Pétrole & gaz</strong> — Centre pétrolier = Khanty-Mansi AO (Iougra). Centre gazier = Yamal-Nénets</div>
+        <div class="list-item"><strong>Métallurgie noire</strong> — Sverdlovsk et Tcheliabinsk. Manque futur de matières premières</div>
+        <div class="list-item"><strong>Industrie militaire</strong> — Centres : Nijni Taguil, Kourgan, Ekaterinbourg, Tcheliabinsk, Miass</div>
+        <div class="list-item"><strong>Énergie</strong> — Déficitaire malgré 17% électricité nationale. Importe de Sibérie et Kazakhstan</div>
+        <div class="list-item"><strong>Transports</strong> — Transsibérien, pipelines vers l'Europe. Aéroport Koltsovo (Ekaterinbourg). Projet corridor "Oural Industriel – Oural Polaire" (707 km)</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : 1er district pollueur (20% rejets nationaux). Catastrophe nucléaire de <strong>Kychtym 1957</strong> (accident de Maïak, déclassifié 1989). Stocks d'armes chimiques à Kourgan.</div>
+      </div>
+    </div>
+
+    <!-- §6 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">06</span>
+          <div><div class="card-title-text">District Fédéral de Sibérie (СФО)</div>
+          <div class="card-subtitle">10 sujets · Novossibirsk · 16,5 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>2e district par superficie. Climat extrême (-50°C/+35°C). <strong>Mine géante</strong> : platine, charbon, nickel, cuivre, or… Lac Baïkal = plus profond du monde (1/5 eau douce mondiale). Belouha = 4 506 m.</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>16,5 M hab.</strong> (11,3% de la Russie)</div>
+        <div class="list-item">3 villes millionnaires : <strong>Novossibirsk, Omsk, Krasnoïarsk</strong></div>
+        <div class="list-item">Fort exode depuis le nord → risque de désertification</div>
+        <div class="list-item">Russes 80%, peuples turcophones, peuples du Nord. Religions : orthodoxie, bouddhisme, islam, chamanisme</div>
+        <h3>Ressources naturelles</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">97,3% platine russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">77,6% charbon</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">73% nickel</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">40,7% cuivre</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">36,8% or</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">21,3% molybdène</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">Baïkal = 1/5 eau douce mondiale</span>
+        </div>
+        <h3>Économie</h3>
+        <div class="list-item"><strong>Charbon</strong> — Kouzbass (Kémérovo) = plus grand bassin de Russie. Aussi : Kansko-Achinski (à ciel ouvert, pas cher), Irkoutsk, Minoussinsk</div>
+        <div class="list-item"><strong>Norilsk</strong> — 2/3 production cuivre russe (holding Norilsk Nikel) = plus grand pollueur atmosphérique de Russie (10% émissions)</div>
+        <div class="list-item"><strong>Aluminium</strong> — RUSAL = plus grande compagnie mondiale d'aluminium</div>
+        <div class="list-item"><strong>Hydroélectricité</strong> — Sur l'Ob et l'Ienisseï : Saïano-Chouschenskaïa, Krasnoïarskaïa, Bratskaïa, Oust-Ilimska</div>
+        <div class="list-item"><strong>Industrie</strong> — Moissonneuses-batteuses, tracteurs, wagons, avions AN-74, hélicoptères, chimie, papier-cellulose (Irkoutsk, Krasnoïarsk)</div>
+        <div class="list-item"><strong>Agriculture</strong> — 1/4 terres agricoles russes (au sud). Céréales, lin, élevage, chasse à la fourrure</div>
+        <div class="list-item"><strong>Commerce extérieur</strong> — 8,2% exports russes (2021). Vers : Europe occ. (25%), Chine (23,5%), Japon (7%), USA (6%)</div>
+        <div class="list-item"><strong>Tourisme & science</strong> — Lac Baïkal, Altaï, réserve Stolby (escalade). Branches sibériennes de l'Académie des Sciences (RAN). 110+ établissements d'enseignement supérieur</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : Norilsk = 10% émissions nationales. Krasnoïarsk = 1er en rejets polluants. Barrages ont noyé des terres fertiles (Bratsk). Usines de Baïkalsk polluent le lac.</div>
+      </div>
+    </div>
+
+    <!-- §7 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">07</span>
+          <div><div class="card-title-text">District Fédéral d'Extrême-Orient (ДФО)</div>
+          <div class="card-subtitle">11 sujets · Vladivostok · 7,9 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span><strong>Plus grand</strong> district (40,6% territoire) mais <strong>moins peuplé</strong> (5,3% population). Façade pacifique de la Russie. Voisins : Chine, Corée du Nord, Japon, USA. Population en baisse depuis 1992. Capitale déplacée à Vladivostok en 2018.</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>7,9 M hab.</strong>, en baisse constante depuis 1992</div>
+        <div class="list-item">Russes 79%, peuples du Nord 7,3%, Bouriates 4,5%, Coréens 1,5%, Chinois</div>
+        <div class="list-item">Fort déficit de main-d'œuvre. Hausse de la population chinoise et coréenne</div>
+        <h3>Ressources naturelles</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">81% diamants russes</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">92% étain</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">70% pêche russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">90% soja russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">50% or</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">42% potentiel hydro-électrique</span>
+        </div>
+        <h3>Économie</h3>
+        <div class="list-item"><strong>Pêche</strong> — Activité principale. Mers de Béring, Okhotsk, Japon. Ports : Vladivostok, Nakhodka, Petropavlovsk-Kamtchatski, Magadan</div>
+        <div class="list-item"><strong>Métaux précieux</strong> — Or (Magadan, Iakoutie), diamants (Iakoutie occ.), étain, plomb, tungstène</div>
+        <div class="list-item"><strong>Industrie militaire</strong> — Avions SU, hélicoptères "Tchernaïa Akula", sous-marins (Bolchoï Kamen), construction navale (Komsomolsk-sur-Amour)</div>
+        <div class="list-item"><strong>Hydrocarbures</strong> — Projets offshore <strong>Sakhaline 1 à 5</strong>. Pipeline Sibérie–Pacifique : <strong>4 740 km</strong> (achevé 2012)</div>
+        <div class="list-item"><strong>Transports</strong> — Transsibérien : <strong>9 288 km</strong>. BAM = 2e magistrale. Route maritime du Nord (5 600 km)</div>
+        <div class="list-item"><strong>Commerce</strong> — Tout l'export russe vers pays ATP passe par le ДФО. Partenaires : Chine (1er), Corée du Sud, Japon, USA</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : zones industrielles critiques (or et diamants polluent les eaux de surface). Centrale nucléaire de Bilibino (Tchoukotka, 1974) : 600t combustible usé + 700t déchets radioactifs. Chute générale des prises de poisson.</div>
+      </div>
+    </div>
+
+    <!-- §8 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">08</span>
+          <div><div class="card-title-text">District Fédéral du Sud (ЮФО)</div>
+          <div class="card-subtitle">8 sujets · Rostov-sur-le-Don · 16,6 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>Entre 3 mers (Noire, Azov, Caspienne). Grenier à blé de la Russie. Crimée rattachée en 2014 — <strong>non reconnue par l'Ukraine et la communauté internationale</strong>. Canal Volga-Don = relie 5 mers. Tourisme = secteur clé.</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>16,6 M hab.</strong> (11,4% de la Russie)</div>
+        <div class="list-item">3 villes millionnaires : <strong>Rostov-sur-le-Don, Volgograd, Krasnodar</strong></div>
+        <div class="list-item">Sébastopol : 547 000 hab. (ville fédérale)</div>
+        <div class="list-item">Crimée : Russes 67,9%, Ukrainiens 15,7%, Tatars de Crimée 10,6% (déportés sous Staline, retour depuis fin années 1980)</div>
+        <h3>Agriculture — 1re de Russie</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">1er céréales</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">1er maïs & riz</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">1er betterave sucrière</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">1er tabac & tournesol</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">1er vin</span>
+        </div>
+        <div class="list-item">Vignobles de Crimée = les plus anciens de Russie. Vins et champagnes (Abrau-Diourso). Pêche : esturgeons, caviar (Astrakhan = "Kaspriba")</div>
+        <h3>Économie</h3>
+        <div class="list-item"><strong>Industrie</strong> — Métallurgie, industrie alimentaire (sucre 36%), moissonneuses-batteuses, tracteurs, équipements nucléaires (Atommash, Volgodonsk), construction navale</div>
+        <div class="list-item"><strong>Énergie</strong> — Pétrole et gaz (Astrakhan, Krasnodar). Charbon Donbass (production chutée ×5). Centrale nucléaire de Volgodonsk (depuis 2001). Sel des lacs Baskountchak et Elton</div>
+        <div class="list-item"><strong>Gazoducs</strong> — <strong>Courant Bleu</strong> (2003, vers Turquie) et <strong>Courant Turc</strong> (2020, vers Europe via Turquie)</div>
+        <div class="list-item"><strong>Transports</strong> — Ports mer Noire : Novorossiisk, Tuapse. Port Caspien : Olya. Rostov = plus grand nœud ferroviaire du sud</div>
+        <div class="list-item"><strong>Tourisme</strong> — Sotchi, Anapa, Yalta, Alouchta. <strong>9,5 M touristes en Crimée (2021)</strong>. Ski à Sotchi (JO 2014). 6 réserves naturelles en Crimée</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Écologie : mer Caspienne en baisse — prévision <strong>-9 m avant 2100</strong>. Mer d'Azov très polluée. Braconnage intensif → stocks esturgeons effondrés. Agriculture intensive = pesticides massifs → risque désertification (Kalmoukie, Astrakhan).</div>
+      </div>
+    </div>
+
+    <!-- §9 -->
+    <div class="card" onclick="toggle(this)">
+      <div class="card-head">
+        <div class="card-left"><span class="card-num">09</span>
+          <div><div class="card-title-text">District Fédéral du Caucase du Nord (СКФО)</div>
+          <div class="card-subtitle">7 sujets · Piatigorsk · 10,37 M hab.</div></div>
+        </div><span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="def-box"><span class="label" style="color:#22c55e">Essentiel</span>Créé en 2010 (séparé du ЮФО). <strong>Plus petit district</strong> (1% territoire). Seul district où les Russes ne sont <strong>pas majoritaires</strong>. Natalité la plus élevée de Russie. Chômage 3× la moyenne nationale.</div>
+        <h3>Population</h3>
+        <div class="list-item"><strong>10,37 M hab.</strong> (2024), 7% de la Russie</div>
+        <div class="list-item">Natalité la plus élevée : Tchétchénie, Ingouchie, Daghestan. Mortalité et espérance de vie : meilleures de Russie</div>
+        <div class="list-item">Exode continu des Russes : de 27,5% à quasi 0% dans certaines républiques. <strong>300 000 Russes</strong> ont quitté entre 1989 et 2002</div>
+        <div class="list-item">Ethnies (2021) : Russes 28%, Tchétchènes 15,6%, Avars 9,5%, Darguines 5,7%, Koumyks 5,2%…</div>
+        <div class="list-item"><strong>+30 nationalités au Daghestan seul</strong> = région la plus multinationale de Russie</div>
+        <h3>Chômage — problème majeur</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(239,68,68,0.1);color:#f87171;border-color:rgba(239,68,68,0.2)">Moyenne district : 8,5% (3× nationale)</span>
+          <span class="tag" style="background:rgba(239,68,68,0.1);color:#f87171;border-color:rgba(239,68,68,0.2)">Ingouchie : 26,4%</span>
+          <span class="tag" style="background:rgba(239,68,68,0.1);color:#f87171;border-color:rgba(239,68,68,0.2)">Daghestan : 11,2%</span>
+          <span class="tag" style="background:rgba(239,68,68,0.1);color:#f87171;border-color:rgba(239,68,68,0.2)">>50% chômeurs = jeunes</span>
+        </div>
+        <h3>Économie — Agriculture dominante</h3>
+        <div class="tag-row">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">42% raisin russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">41% cheptel ovin/caprin</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">46% laine russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">41% tungstène russe</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">30% eaux minérales</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.2)">15% artisanat populaire (Daghestan)</span>
+        </div>
+        <div class="list-item"><strong>Industrie très limitée</strong> — Seul Stavropol est développé. Raffineries au Daghestan et Ingouchie. 40-50% des investissements viennent de l'État</div>
+        <div class="list-item"><strong>Daghestan</strong> — 1er cognac, 4e champagne. Élevage de chevaux de race = spécialité du district</div>
+        <div class="list-item"><strong>Commerce extérieur</strong> — Seulement 0,8% du commerce russe. ¾ des exports = Kraï de Stavropol</div>
+        <h3>Tourisme — fort potentiel mal exploité</h3>
+        <div class="list-item"><strong>Elbrouz : 5 642 m</strong> = plus haute montagne d'Europe</div>
+        <div class="list-item">Stations thermales : <strong>Kislovodsk, Essentouki, Piatigorsk</strong> (Eaux Minérales du Caucase)</div>
+        <div class="list-item">Stations de ski : Dombay/Teberda, Prielbrusié, Tseï (Ossétie du Nord). 490 km côte caspienne</div>
+        <div class="list-item">Seulement <strong>6% production touristique russe</strong> malgré le potentiel → frein = instabilité politique</div>
+        <div class="alert" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#86efac;">⚠️ Instabilité politique, criminalité, corruption = faible attractivité pour investisseurs. Guerre en Tchétchénie = destruction massive des forêts de montagne. Montée du niveau caspien = destruction zones côtières.</div>
+      </div>
+    </div>
+
+  </div><!-- /geo cards -->
+
 </div><!-- /section-wrap -->
 
 <footer>
-  Fait avec ❤️ pour tes rattrapages · L2 LEA Lille · <span>Bon courage le 2 juin !</span>
+  Fait avec ❤️ pour tes révisions · L2 LEA Lille · <span>Bon courage !</span>
 </footer>
 
 <script>
-  function toggle(card) {
-    card.classList.toggle('open');
-  }
-  function scrollTo(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  function toggle(card) { card.classList.toggle('open'); }
+  function scrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 </script>
 </body>
 </html>
+HTMLEOF
+echo "done: $(wc -c < /mnt/user-data/outputs/revisions_l2_lea.html) bytes"
+
+Output
